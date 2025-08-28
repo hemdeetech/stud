@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme-toggle";
 
@@ -17,6 +17,7 @@ const navItems = [
   { href: "/ai-electrician", label: "AI Assistant" },
   { href: "/referral-program", label: "Referral Program" },
   { href: "/blog", label: "Blog" },
+  { href: "/feedback", label: "Feedback" },
   { href: "/contact", label: "Contact Us" },
 ];
 
@@ -63,12 +64,10 @@ export function Header() {
                     <Zap className="h-5 w-5 text-primary" />
                     <span>HDTC</span>
                   </Link>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon">
-                       <X className="h-6 w-6" />
-                       <span className="sr-only">Close menu</span>
-                    </Button>
-                  </SheetClose>
+                  <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
+                     <X className="h-6 w-6" />
+                     <span className="sr-only">Close menu</span>
+                  </Button>
                 </SheetHeader>
                 <nav className="mt-6 flex flex-col gap-4 px-4">
                   {navItems.map((item) => (
