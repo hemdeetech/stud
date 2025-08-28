@@ -45,7 +45,11 @@ const electricianFlow = ai.defineFlow(
     outputSchema: ChatWithElectricianOutputSchema,
   },
   async (input) => {
-    // This flow now expects a string and will be handled by the client.
+    // Definitive guard against null or empty inputs.
+    if (typeof input !== 'string' || !input.trim()) {
+      return `I'm Sparky, your AI Electrician. How can I help you with your electrical problem today? Remember: ${safetyMessage}`;
+    }
+
     const {output} = await prompt(input);
     return output!;
   }
