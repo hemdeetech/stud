@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -8,8 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -31,25 +30,25 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      await addDoc(collection(db, "contacts"), {
-        ...values,
-        createdAt: serverTimestamp(),
+    const recipientEmail = "hem.dee.technology@gmail.com";
+    const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(
+      values.subject
+    )}&body=${encodeURIComponent(
+      `Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`
+    )}`;
+
+    // This will attempt to open the user's default email client.
+    window.location.href = mailtoLink;
+    
+    toast({
+        title: "Email Client Opened",
+        description: "Please complete sending the message through your email client.",
       });
 
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We will get back to you shortly.",
-      });
-      form.reset();
-    } catch (error) {
-      console.error("Error adding document: ", error);
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again later.",
-        variant: "destructive",
-      });
-    }
+    // Reset the form after a short delay to allow the email client to open.
+    setTimeout(() => {
+        form.reset();
+    }, 1000);
   }
 
   return (
@@ -112,7 +111,7 @@ export function ContactForm() {
           )}
         />
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Sending..." : "Send Message"}
+          {form.formState.isSubmitting ? "Opening Email..." : "Send Message"}
         </Button>
       </form>
     </Form>
