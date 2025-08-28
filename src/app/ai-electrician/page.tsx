@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -18,6 +18,27 @@ export default function AIElectricianPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getInitialMessage = async () => {
+      setIsLoading(true);
+      try {
+        const assistantResponse = await chatWithElectrician('');
+        const assistantMessage: Message = { role: 'assistant', content: assistantResponse };
+        setMessages([assistantMessage]);
+      } catch (error) {
+        console.error('Error fetching initial AI response:', error);
+        const errorMessage: Message = {
+          role: 'assistant',
+          content: "I'm sorry, something went wrong. Please try again later.",
+        };
+        setMessages([errorMessage]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getInitialMessage();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,13 +99,23 @@ export default function AIElectricianPage() {
                   )}
                 </div>
               ))}
-               {isLoading && (
+               {isLoading && messages.length > 0 && (
                 <div className="flex items-start gap-3">
                     <Avatar className="h-8 w-8">
                       <AvatarFallback><Bot className="h-4 w-4" /></AvatarFallback>
                     </Avatar>
                   <div className="rounded-lg p-3 bg-background">
                     <p className="text-sm">Sparky is thinking...</p>
+                  </div>
+                </div>
+              )}
+               {isLoading && messages.length === 0 && (
+                <div className="flex items-start gap-3">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback><Bot className="h-4 w-4" /></AvatarFallback>
+                    </Avatar>
+                  <div className="rounded-lg p-3 bg-background">
+                    <p className="text-sm">Sparky is getting ready...</p>
                   </div>
                 </div>
               )}

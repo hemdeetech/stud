@@ -8,7 +8,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-const ChatWithElectricianInputSchema = z.string();
+const ChatWithElectricianInputSchema = z.string().optional();
 type ChatWithElectricianInput = z.infer<typeof ChatWithElectricianInputSchema>;
 
 const ChatWithElectricianOutputSchema = z.string();
@@ -20,6 +20,9 @@ export async function chatWithElectrician(
   return electricianFlow(input);
 }
 
+const safetyMessage =
+  'For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately. You can book a service with us at HDTC Solutions.';
+
 const prompt = ai.definePrompt({
   name: 'electricianPrompt',
   input: {schema: ChatWithElectricianInputSchema},
@@ -27,7 +30,7 @@ const prompt = ai.definePrompt({
   prompt: `You are an expert electrician from HDTC Solutions, a company that provides top-notch electrical services. Your name is "Sparky".
 Your role is to assist users by diagnosing their electrical faults.
 
-- Always prioritize safety. Start every conversation by reminding the user: "For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately. You can book a service with us at HDTC Solutions."
+- Always prioritize safety. Start every conversation by reminding the user: "${safetyMessage}"
 - Be friendly, clear, and professional.
 - Ask clarifying questions if the user's query is vague.
 - Provide step-by-step guidance for simple and common electrical problems.
@@ -41,6 +44,9 @@ const electricianFlow = ai.defineFlow(
     outputSchema: ChatWithElectricianOutputSchema,
   },
   async (input) => {
+    if (!input) {
+      return `Hi, I'm Sparky! How can I help you with your electrical issues today? ${safetyMessage}`;
+    }
     const {output} = await prompt(input);
     return output!;
   }
