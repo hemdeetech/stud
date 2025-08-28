@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 export const FeedbackAnalysisInputSchema = z.object({
   user: z.string().describe('The name and email of the user providing feedback.'),
@@ -48,8 +48,8 @@ Provide the analysis in the specified JSON format.`,
 const feedbackAnalysisFlow = ai.defineFlow(
   {
     name: 'feedbackAnalysisFlow',
-    inputSchema: Feedback.FeedbackAnalysisInputSchema,
-    outputSchema: Feedback.FeedbackAnalysisOutputSchema,
+    inputSchema: FeedbackAnalysisInputSchema,
+    outputSchema: FeedbackAnalysisOutputSchema,
   },
   async (input) => {
     const { output } = await prompt(input);
