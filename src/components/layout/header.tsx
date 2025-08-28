@@ -7,6 +7,7 @@ import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "../theme-toggle";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -30,7 +31,7 @@ export function Header() {
             <Zap className="h-6 w-6 text-primary" />
             <span>HDTC</span>
           </Link>
-          <nav className="hidden md:flex md:items-center md:gap-6">
+          <nav className="hidden md:flex md:items-center md:gap-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -43,8 +44,10 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <ThemeToggle />
           </nav>
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
