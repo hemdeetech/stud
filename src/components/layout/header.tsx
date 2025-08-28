@@ -17,7 +17,6 @@ const navItems = [
   { href: "/ai-electrician", label: "AI Assistant" },
   { href: "/referral-program", label: "Referral Program" },
   { href: "/blog", label: "Blog" },
-  { href: "/feedback", label: "Feedback" },
   { href: "/contact", label: "Contact Us" },
 ];
 
