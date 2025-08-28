@@ -23,6 +23,7 @@ export default function AIElectricianPage() {
     const getInitialMessage = async () => {
       setIsLoading(true);
       try {
+        // Pass an empty string to get the initial greeting.
         const assistantResponse = await chatWithElectrician('');
         const assistantMessage: Message = { role: 'assistant', content: assistantResponse };
         setMessages([assistantMessage]);
