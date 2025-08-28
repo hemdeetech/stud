@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme-toggle";
 
@@ -57,16 +57,19 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full max-w-xs bg-background">
-                <div className="flex justify-between items-center p-4 border-b">
+                <SheetHeader className="flex-row justify-between items-center p-4 border-b">
+                   <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                    <Link href="/" className="flex items-center gap-2 font-bold text-lg" onClick={() => setIsMobileMenuOpen(false)}>
                     <Zap className="h-5 w-5 text-primary" />
                     <span>HDTC</span>
                   </Link>
-                  <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                     <X className="h-6 w-6" />
-                     <span className="sr-only">Close menu</span>
-                  </Button>
-                </div>
+                  <SheetClose asChild>
+                    <Button variant="ghost" size="icon">
+                       <X className="h-6 w-6" />
+                       <span className="sr-only">Close menu</span>
+                    </Button>
+                  </SheetClose>
+                </SheetHeader>
                 <nav className="mt-6 flex flex-col gap-4 px-4">
                   {navItems.map((item) => (
                     <Link
