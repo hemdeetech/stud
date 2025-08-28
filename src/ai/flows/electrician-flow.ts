@@ -25,7 +25,7 @@ const safetyMessage =
 
 const prompt = ai.definePrompt({
   name: 'electricianPrompt',
-  input: {schema: ChatWithElectricianInputSchema},
+  input: {schema: z.string()},
   output: {schema: ChatWithElectricianOutputSchema},
   prompt: `You are an expert electrician from HDTC Solutions, a company that provides top-notch electrical services. Your name is "Sparky".
 Your role is to assist users by diagnosing their electrical faults.
