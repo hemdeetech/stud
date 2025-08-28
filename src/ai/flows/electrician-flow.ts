@@ -45,7 +45,7 @@ const electricianFlow = ai.defineFlow(
     outputSchema: ChatWithElectricianOutputSchema,
   },
   async (input) => {
-    // Definitive guard against null or empty inputs.
+    // Definitive guard against null, undefined, or empty inputs.
     if (typeof input !== 'string' || !input.trim()) {
       return `I'm Sparky, your AI Electrician. How can I help you with your electrical problem today? Remember: ${safetyMessage}`;
     }
