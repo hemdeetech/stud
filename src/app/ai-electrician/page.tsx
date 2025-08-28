@@ -16,7 +16,12 @@ interface Message {
 }
 
 export default function AIElectricianPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: "Hi, I'm Sparky, your AI Electrician. How can I help you with your electrical problem today?",
+    }
+  ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
