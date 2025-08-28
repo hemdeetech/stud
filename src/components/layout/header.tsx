@@ -14,6 +14,7 @@ const navItems = [
   { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/ai-electrician", label: "AI Assistant" },
   { href: "/referral-program", label: "Referral Program" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact Us" },
