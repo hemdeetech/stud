@@ -15,11 +15,8 @@ interface Message {
   content: string;
 }
 
-const safetyMessage = 'For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately. You can book a service with us at HDTC Solutions.';
-const initialMessage: Message = { role: 'assistant', content: `Hi, I'm Sparky! How can I help you with your electrical issues today? ${safetyMessage}`};
-
 export default function AIElectricianPage() {
-  const [messages, setMessages] = useState<Message[]>([initialMessage]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -78,12 +75,17 @@ export default function AIElectricianPage() {
             </div>
             <CardTitle className="text-3xl font-bold font-headline">AI Electrician Assistant</CardTitle>
             <CardDescription className="text-muted-foreground md:text-lg">
-              Ask "Sparky" about your electrical faults.
+              Ask "Sparky" about your electrical faults. For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-96 p-4 border rounded-md bg-secondary/20" ref={scrollAreaRef}>
               <div className="space-y-6">
+                {messages.length === 0 && (
+                   <div className="text-center text-muted-foreground">
+                    No messages yet. Start the conversation below!
+                   </div>
+                )}
                 {messages.map((message, index) => (
                   <div key={index} className={`flex items-start gap-3 ${message.role === 'user' ? 'justify-end' : ''}`}>
                     {message.role === 'assistant' && (
