@@ -3,8 +3,6 @@
  * @fileOverview An AI electrician assistant flow.
  *
  * - chatWithElectrician - A function that handles the chat with the AI electrician.
- * - ChatWithElectricianInput - The input type for the chatWithElectrician function.
- * - ChatWithElectricianOutput - The return type for the chatWithElectrician function.
  */
 
 import {ai} from '@/ai/genkit';
