@@ -10,11 +10,11 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const ChatWithElectricianInputSchema = z.string();
-export type ChatWithElectricianInput = z.infer<typeof ChatWithElectricianInputSchema>;
+const ChatWithElectricianInputSchema = z.string();
+type ChatWithElectricianInput = z.infer<typeof ChatWithElectricianInputSchema>;
 
-export const ChatWithElectricianOutputSchema = z.string();
-export type ChatWithElectricianOutput = z.infer<typeof ChatWithElectricianOutputSchema>;
+const ChatWithElectricianOutputSchema = z.string();
+type ChatWithElectricianOutput = z.infer<typeof ChatWithElectricianOutputSchema>;
 
 export async function chatWithElectrician(
   input: ChatWithElectricianInput
