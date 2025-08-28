@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { chatWithElectrician } from '@/ai/flows/electrician-flow';
 import { Bot, User } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,7 +19,7 @@ export default function AIElectricianPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi, I'm Sparky, your AI Electrician. How can I help you with your electrical problem today? For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately.",
+      content: "Hi, I'm Sparky, your AI Electrician. How can I help you with your electrical problem today? For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately. You can book a service with us at HDTC Solutions.",
     }
   ]);
   const [input, setInput] = useState('');
