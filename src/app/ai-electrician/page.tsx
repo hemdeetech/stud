@@ -15,32 +15,15 @@ interface Message {
   content: string;
 }
 
+const safetyMessage = 'For your safety, if you are not comfortable with any of these steps, or if you suspect a serious electrical issue, please do not proceed. Contact a qualified electrician immediately. You can book a service with us at HDTC Solutions.';
+const initialMessage: Message = { role: 'assistant', content: `Hi, I'm Sparky! How can I help you with your electrical issues today? ${safetyMessage}`};
+
 export default function AIElectricianPage() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const getInitialMessage = async () => {
-      setIsLoading(true);
-      try {
-        const assistantResponse = await chatWithElectrician('');
-        const assistantMessage: Message = { role: 'assistant', content: assistantResponse };
-        setMessages([assistantMessage]);
-      } catch (error) {
-        console.error('Error fetching initial AI response:', error);
-        const errorMessage: Message = {
-          role: 'assistant',
-          content: "I'm sorry, something went wrong. Please try again later.",
-        };
-        setMessages([errorMessage]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getInitialMessage();
-  }, []);
 
   useEffect(() => {
     if (scrollAreaRef.current) {

@@ -8,7 +8,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-const ChatWithElectricianInputSchema = z.string().optional();
+const ChatWithElectricianInputSchema = z.string();
 type ChatWithElectricianInput = z.infer<typeof ChatWithElectricianInputSchema>;
 
 const ChatWithElectricianOutputSchema = z.string();
@@ -44,9 +44,7 @@ const electricianFlow = ai.defineFlow(
     outputSchema: ChatWithElectricianOutputSchema,
   },
   async (input) => {
-    if (!input) {
-      return `Hi, I'm Sparky! How can I help you with your electrical issues today? ${safetyMessage}`;
-    }
+    // This flow now expects a string and will be handled by the client.
     const {output} = await prompt(input);
     return output!;
   }
