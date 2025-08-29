@@ -30,25 +30,32 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const recipientEmail = "hem.dee.technology@gmail.com";
-    const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(
-      values.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`
-    )}`;
-
-    // This will attempt to open the user's default email client.
-    window.location.href = mailtoLink;
-    
-    toast({
-        title: "Email Client Opened",
-        description: "Please complete sending the message through your email client.",
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
       });
 
-    // Reset the form after a short delay to allow the email client to open.
-    setTimeout(() => {
-        form.reset();
-    }, 1000);
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We will get back to you shortly.",
+      });
+      form.reset();
+
+    } catch (error) {
+       toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -111,7 +118,7 @@ export function ContactForm() {
           )}
         />
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Opening Email..." : "Send Message"}
+          {form.formState.isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </Form>
