@@ -66,19 +66,14 @@ export default function ContactPage() {
                         <p className="text-muted-foreground">Dopemu, Lagos, Nigeria.</p>
                         </div>
                     </div>
-                    <div className="flex items-start gap-4 pt-4 border-t">
-                        <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                        <Twitter className="w-6 h-6 text-primary" />
-                        </div>
-                        <div>
-                        <h3 className="font-semibold">Social Media</h3>
-                        <div className="flex items-center gap-4 mt-2">
+                    <div className="pt-6 border-t">
+                        <h3 className="font-semibold mb-2 text-center">Social Media</h3>
+                        <div className="flex items-center justify-center gap-4 mt-2">
                             <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
                             <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
                             <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
                             <a href="https://www.tiktok.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><TikTokIcon className="h-5 w-5" /></a>
                             <a href="https://youtube.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Youtube className="h-5 w-5" /></a>
-                        </div>
                         </div>
                     </div>
                     </div>
