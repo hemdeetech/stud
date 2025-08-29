@@ -8,37 +8,36 @@ let adminDb: admin.firestore.Firestore;
 
 if (!admin.apps.length) {
     try {
-        const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY
-            ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
-            : null;
+        const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
         
-        if (serviceAccount) {
-            admin.initializeApp({
-                credential: admin.credential.cert(serviceAccount),
-                databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
-                projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-            });
-            adminDb = admin.firestore();
-        } else {
-            console.warn("Firebase Admin SDK service account not available. Some features will be disabled.");
-            // Create a mock Firestore instance to avoid crashes during build or in environments without credentials.
-            adminDb = {
-                collection: () => ({
-                    doc: () => ({
-                        set: () => Promise.resolve(),
-                    }),
-                }),
-            } as unknown as admin.firestore.Firestore;
+        if (!serviceAccountString) {
+            throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
         }
+
+        const serviceAccount = JSON.parse(serviceAccountString);
+
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+            databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
+            projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        });
+        console.log("Firebase Admin SDK initialized successfully.");
+        adminDb = admin.firestore();
     } catch (error) {
         console.error("Failed to initialize Firebase Admin SDK:", error);
-         // Ensure adminDb is a mock if initialization fails for any reason.
+        // Create a mock Firestore instance to avoid crashes during build or in environments without credentials.
         adminDb = {
-            collection: () => ({
-                doc: () => ({
-                    set: () => Promise.resolve(),
-                }),
-            }),
+            collection: (collectionName: string) => {
+                console.error(`Firestore not initialized. Cannot access collection: ${collectionName}`);
+                return {
+                    doc: () => ({
+                        set: () => {
+                           console.error("Firestore not initialized. Cannot set document.");
+                           return Promise.resolve();
+                        },
+                    }),
+                };
+            },
         } as unknown as admin.firestore.Firestore;
     }
 } else {

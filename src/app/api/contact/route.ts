@@ -26,6 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Submission successful' }, { status: 200 });
   } catch (error) {
     console.error('Error in contact form submission:', error);
+    // It's better to not expose internal errors to the client.
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
