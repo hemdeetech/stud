@@ -35,7 +35,7 @@ export default function ContactPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 mt-16 max-w-6xl mx-auto">
-          <div className="bg-secondary/50 p-8 rounded-lg flex flex-col h-full">
+          <div className="bg-secondary/50 p-8 rounded-lg flex flex-col">
             <h2 className="text-2xl font-bold mb-6 text-center">Get in Touch</h2>
             <div className="space-y-6">
                <div className="flex items-start gap-4">
@@ -82,7 +82,7 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-          <div className="bg-background p-8 rounded-lg shadow-lg flex flex-col h-full">
+          <div className="bg-background p-8 rounded-lg shadow-lg flex flex-col">
              <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
             <ContactForm />
           </div>
