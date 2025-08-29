@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       subject,
       message,
       createdAt: new Date().toISOString(),
-      to: "hem.dee.technology@gmail.com" // Add your email here
+      to: "hem.dee.technology@gmail.com"
     });
 
     return NextResponse.json({ message: 'Submission successful' }, { status: 200 });

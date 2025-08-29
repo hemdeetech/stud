@@ -1,31 +1,9 @@
 
 import { ContactForm } from '@/components/contact-form';
-import { Button } from '@/components/ui/button';
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react';
-import Link from 'next/link';
-
-const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-    </svg>
-);
-
+import { Mail, MapPin, Phone, Twitter, Facebook, Instagram } from 'lucide-react';
 
 export default function ContactPage() {
   const displayPhoneNumber = "+239036683558";
-  const whatsappNumber = "239036683558";
-  const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   return (
     <div className="py-12 md:py-24 lg:py-32">
@@ -67,14 +45,6 @@ export default function ContactPage() {
                   <h3 className="font-semibold">Our Office</h3>
                   <p className="text-muted-foreground">123 Tech Avenue, Innovation City</p>
                 </div>
-              </div>
-              <div className="flex items-center gap-4 pt-4 border-t">
-                  <Button asChild className="bg-green-500 hover:bg-green-600 text-white w-full">
-                      <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                          <WhatsAppIcon className="w-5 h-5 mr-2" />
-                          Chat on WhatsApp
-                      </a>
-                  </Button>
               </div>
               <div className="flex items-start gap-4 pt-4 border-t">
                  <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
