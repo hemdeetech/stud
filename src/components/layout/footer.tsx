@@ -46,14 +46,13 @@ export function Footer() {
           </div>
           
           <div className="md:justify-self-end">
-            <h3 className="font-semibold mb-4">Contact &amp; Socials</h3>
+            <h3 className="font-semibold mb-4">Contact & Socials</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
                 <a href="tel:+2349036683558" className="text-muted-foreground hover:text-primary">+2349036683558</a>
               </li>
               <li className="mt-4">
-                <p className="text-muted-foreground mb-2">Social: @WeAreHdtc</p>
                 <div className="flex items-center gap-3">
                     <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
                     <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>

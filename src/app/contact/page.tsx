@@ -71,8 +71,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Social Media</h3>
-                  <p className="text-muted-foreground mb-2">@WeAreHdtc</p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 mt-2">
                     <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
                     <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
                     <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
