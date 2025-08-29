@@ -15,14 +15,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
 
 // Initialize App Check
 if (typeof window !== 'undefined') {
-  const appCheck = initializeAppCheck(app, {
+  // Pass your reCAPTCHA v3 site key (public key) to the provider.
+  // This key is safe to be exposed in client-side code.
+  initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider('6Ld-5QsqAAAAAN_p093fl_4t2aJ3F8x3v5E2M-C8'),
     isTokenAutoRefreshEnabled: true
   });
 }
+
+const db = getFirestore(app);
 
 export { app, db };
