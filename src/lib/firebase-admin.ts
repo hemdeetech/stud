@@ -14,8 +14,9 @@ if (!admin.apps.length) {
             throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
         }
 
+        // Correctly parse the multi-line private key
         const serviceAccount = JSON.parse(serviceAccountString);
-
+        
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount),
             databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}.firebaseio.com`,
@@ -23,8 +24,8 @@ if (!admin.apps.length) {
         });
         console.log("Firebase Admin SDK initialized successfully.");
         adminDb = admin.firestore();
-    } catch (error) {
-        console.error("Failed to initialize Firebase Admin SDK:", error);
+    } catch (error: any) {
+        console.error("Failed to initialize Firebase Admin SDK:", error.message);
         // Create a mock Firestore instance to avoid crashes during build or in environments without credentials.
         adminDb = {
             collection: (collectionName: string) => {
