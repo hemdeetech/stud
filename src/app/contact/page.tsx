@@ -62,7 +62,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold">Our Office</h3>
-                  <p className="text-muted-foreground">123 Tech Avenue, Innovation City</p>
+                  <p className="text-muted-foreground">Dopemu, Lagos, Nigeria.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4 pt-4 border-t">
