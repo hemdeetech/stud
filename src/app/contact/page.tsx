@@ -3,7 +3,7 @@ import { ContactForm } from '@/components/contact-form';
 import { Mail, MapPin, Phone, Twitter, Facebook, Instagram } from 'lucide-react';
 
 export default function ContactPage() {
-  const displayPhoneNumber = "+239036683558";
+  const displayPhoneNumber = "+2349036683558";
 
   return (
     <div className="py-12 md:py-24 lg:py-32">
