@@ -34,58 +34,60 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mt-16 max-w-6xl mx-auto">
-          <div className="bg-secondary/50 p-8 rounded-lg flex flex-col">
-            <h2 className="text-2xl font-bold mb-6 text-center">Get in Touch</h2>
-            <div className="space-y-6">
-               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary" />
+        <div className="mt-16 flex justify-center">
+            <div className="grid md:grid-cols-2 gap-12 max-w-6xl w-full">
+                <div className="bg-secondary/50 p-8 rounded-lg flex flex-col justify-center">
+                    <h2 className="text-2xl font-bold mb-6 text-center">Get in Touch</h2>
+                    <div className="space-y-6">
+                    <div className="flex items-start gap-4">
+                        <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                        <Phone className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                        <h3 className="font-semibold">Phone Number</h3>
+                        <a href={`tel:${displayPhoneNumber}`} className="text-muted-foreground hover:text-primary">{displayPhoneNumber}</a>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                        <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                        <Mail className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                        <h3 className="font-semibold">Email Address</h3>
+                        <a href="mailto:hem.dee.technology@gmail.com" className="text-muted-foreground hover:text-primary">hem.dee.technology@gmail.com</a>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                        <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                        <MapPin className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                        <h3 className="font-semibold">Our Office</h3>
+                        <p className="text-muted-foreground">Dopemu, Lagos, Nigeria.</p>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-4 pt-4 border-t">
+                        <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                        <Twitter className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                        <h3 className="font-semibold">Social Media</h3>
+                        <div className="flex items-center gap-4 mt-2">
+                            <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
+                            <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
+                            <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
+                            <a href="https://www.tiktok.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><TikTokIcon className="h-5 w-5" /></a>
+                            <a href="https://youtube.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Youtube className="h-5 w-5" /></a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold">Phone Number</h3>
-                  <a href={`tel:${displayPhoneNumber}`} className="text-muted-foreground hover:text-primary">{displayPhoneNumber}</a>
+                <div className="bg-background p-8 rounded-lg shadow-lg flex flex-col">
+                    <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
+                    <ContactForm />
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Email Address</h3>
-                  <a href="mailto:hem.dee.technology@gmail.com" className="text-muted-foreground hover:text-primary">hem.dee.technology@gmail.com</a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Our Office</h3>
-                  <p className="text-muted-foreground">Dopemu, Lagos, Nigeria.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 pt-4 border-t">
-                 <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                  <Twitter className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Social Media</h3>
-                  <div className="flex items-center gap-4 mt-2">
-                    <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
-                    <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
-                    <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></a>
-                    <a href="https://www.tiktok.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><TikTokIcon className="h-5 w-5" /></a>
-                    <a href="https://youtube.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Youtube className="h-5 w-5" /></a>
-                 </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div className="bg-background p-8 rounded-lg shadow-lg flex flex-col">
-             <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
-            <ContactForm />
-          </div>
         </div>
       </div>
     </div>
