@@ -1,4 +1,5 @@
 import { ContactForm } from '@/components/contact-form';
+import { Button } from '@/components/ui/button';
 import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react';
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -47,14 +48,20 @@ export default function ContactPage() {
                   <a href={`tel:${displayPhoneNumber}`} className="text-muted-foreground hover:text-primary">{displayPhoneNumber}</a>
                 </div>
               </div>
-               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
-                  <WhatsAppIcon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">WhatsApp</h3>
-                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">{displayPhoneNumber}</a>
-                </div>
+              <div className="flex items-start gap-4">
+                 <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
+                    <WhatsAppIcon className="w-6 h-6 text-primary" />
+                 </div>
+                 <div className="flex-grow">
+                     <h3 className="font-semibold">WhatsApp</h3>
+                     <p className="text-muted-foreground mb-2">Chat with us directly on WhatsApp for a quick response.</p>
+                     <Button asChild variant="outline" size="sm">
+                         <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                             <WhatsAppIcon className="mr-2 h-4 w-4" />
+                             Chat on WhatsApp
+                         </a>
+                     </Button>
+                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="bg-primary/10 p-3 rounded-full flex-shrink-0">
