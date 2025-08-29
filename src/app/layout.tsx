@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import { WhatsAppButton } from '@/components/whatsapp-button';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Header />
           <main className="min-h-[calc(100vh-10rem)]">{children}</main>
           <Footer />
+          <WhatsAppButton />
           <Toaster />
         </ThemeProvider>
       </body>

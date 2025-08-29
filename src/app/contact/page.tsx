@@ -54,13 +54,9 @@ export default function ContactPage() {
                  </div>
                  <div className="flex-grow">
                      <h3 className="font-semibold">WhatsApp</h3>
-                     <p className="text-muted-foreground mb-2">Chat with us directly on WhatsApp for a quick response.</p>
-                     <Button asChild variant="outline" size="sm">
-                         <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                             <WhatsAppIcon className="mr-2 h-4 w-4" />
-                             Chat on WhatsApp
-                         </a>
-                     </Button>
+                     <p className="text-muted-foreground">
+                        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{displayPhoneNumber}</a>
+                     </p>
                  </div>
               </div>
               <div className="flex items-start gap-4">
