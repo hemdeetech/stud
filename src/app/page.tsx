@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldCheck, Wrench, Zap } from 'lucide-react';
-import { AIElectricianChat } from '@/components/ai-electrician-chat';
 
 const featuredServices = [
   { name: 'House & Office Wiring', icon: Zap, href: '/services' },
@@ -128,11 +127,6 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="ai-electrician" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
-        <div className="container mx-auto px-4 md:px-6">
-          <AIElectricianChat />
-        </div>
-      </section>
     </>
   );
 }
