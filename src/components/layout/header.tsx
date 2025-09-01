@@ -4,11 +4,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../theme-toggle";
+import Image from "next/image";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -28,9 +29,9 @@ export function Header() {
     <header className="bg-background/80 sticky top-0 z-50 backdrop-blur-sm border-b">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-foreground">
-            <Zap className="h-6 w-6 text-primary" />
-            <span>HDTC</span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
+            <span className="font-bold text-xl text-foreground">HDTC</span>
           </Link>
           <nav className="hidden md:flex md:items-center md:gap-4">
             {navItems.map((item) => (
@@ -60,7 +61,7 @@ export function Header() {
                 <SheetHeader className="flex-row justify-between items-center p-4 border-b">
                    <SheetTitle>
                      <Link href="/" className="flex items-center gap-2 font-bold text-lg" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Zap className="h-5 w-5 text-primary" />
+                      <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={32} height={32} className="rounded-full" />
                       <span>HDTC</span>
                     </Link>
                    </SheetTitle>

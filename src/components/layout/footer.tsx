@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
-import { Facebook, Instagram, Phone, Zap, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Phone, Youtube } from 'lucide-react';
+import Image from 'next/image';
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -39,9 +40,9 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-start">
-            <Link href="/" className="flex items-center gap-2 font-bold text-xl mb-4 text-foreground">
-              <Zap className="h-6 w-6 text-primary" />
-              <span>HDTC Solutions</span>
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
+              <span className="font-bold text-xl text-foreground">HDTC Solutions</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               Your trusted partner for modern electrical and tech solutions.
