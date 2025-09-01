@@ -41,7 +41,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-start">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
+              <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
               <span className="font-bold text-xl text-foreground">HDTC Solutions</span>
             </Link>
             <p className="text-muted-foreground text-sm">

@@ -30,7 +30,7 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
+            <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
             <span className="font-bold text-xl text-foreground">HDTC</span>
           </Link>
           <nav className="hidden md:flex md:items-center md:gap-4">
@@ -61,7 +61,7 @@ export function Header() {
                 <SheetHeader className="flex-row justify-between items-center p-4 border-b">
                    <SheetTitle>
                      <Link href="/" className="flex items-center gap-2 font-bold text-lg" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Image src="/hdtc-logo.png" alt="HDTC Solutions Logo" width={32} height={32} className="rounded-full" />
+                      <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Solutions Logo" width={32} height={32} className="rounded-full" />
                       <span>HDTC</span>
                     </Link>
                    </SheetTitle>
