@@ -20,7 +20,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-headline">
-              Powering Your Future with <span className="text-primary">High Digital Tech</span>
+              Powering Your Future with <span className="text-primary">Hem Dee Tech</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground md:text-xl">
               From advanced electrical installations to smart home solutions, we provide reliable, innovative, and efficient services to meet all your technological needs.

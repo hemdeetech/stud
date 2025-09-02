@@ -6,7 +6,7 @@ export default function AboutPage() {
     <div className="py-12 md:py-24 lg:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl font-headline">About HDTC Solutions</h1>
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl font-headline">About Hem Dee Tech Solutions</h1>
           <p className="mt-4 text-muted-foreground md:text-xl">
             We are a dynamic team of experts dedicated to providing cutting-edge electrical and technology solutions.
           </p>
@@ -26,7 +26,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Who We Are</h2>
             <p className="mt-4 text-muted-foreground">
-              High Digital Tech Company (HDTC) was founded with a mission to bridge the gap between traditional electrical services and modern technological advancements. We pride ourselves on our commitment to quality, innovation, and customer satisfaction.
+              Hem Dee Tech Company (HDTC) was founded with a mission to bridge the gap between traditional electrical services and modern technological advancements. We pride ourselves on our commitment to quality, innovation, and customer satisfaction.
             </p>
             <p className="mt-4 text-muted-foreground">
               Our team is composed of certified electricians, IT professionals, and engineers who work collaboratively to deliver comprehensive solutions tailored to each client's unique needs. We believe in continuous learning and stay updated with the latest industry trends to offer the best services possible.

@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'HDTC Solutions',
-  description: 'High Digital Tech Company for electrical installations, smart homes, and more.',
+  description: 'Hem Dee Tech Company for electrical installations, smart homes, and more.',
 };
 
 export default function RootLayout({
