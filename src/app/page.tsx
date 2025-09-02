@@ -117,7 +117,7 @@ export default function Home() {
                <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Testimonials</div>
             </div>
             <blockquote className="text-lg font-semibold leading-snug lg:text-xl lg:leading-normal">
-              “HDTC Solutions transformed our office with their smart home gadgets and professional wiring. The team was efficient, knowledgeable, and the 24/7 support gives us peace of mind. Highly recommended!“
+              “HDTC transformed our office with their smart home gadgets and professional wiring. The team was efficient, knowledgeable, and the 24/7 support gives us peace of mind. Highly recommended!“
             </blockquote>
             <div className="mt-6">
               <p className="font-semibold">Jane Doe</p>

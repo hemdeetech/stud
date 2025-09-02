@@ -41,8 +41,8 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="flex flex-col items-start">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Solutions Logo" width={40} height={40} className="rounded-full" />
-              <span className="font-bold text-xl text-foreground">HDTC Solutions</span>
+              <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Logo" width={40} height={40} className="rounded-full" />
+              <span className="font-bold text-xl text-foreground">HDTC</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               Your trusted partner for modern electrical and tech solutions.
@@ -79,7 +79,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} HDTC Solutions. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} HDTC. All rights reserved.</p>
         </div>
       </div>
     </footer>

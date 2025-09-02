@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'HDTC Solutions',
+  title: 'HDTC',
   description: 'Hem Dee Tech Company for electrical installations, smart homes, and more.',
 };
 
