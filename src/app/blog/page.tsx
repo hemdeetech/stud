@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
+import { format } from 'date-fns';
 
 const blogPosts = [
   {
@@ -11,7 +12,7 @@ const blogPosts = [
     title: '5 Benefits of Smart Home Automation You Can\'t Ignore',
     description: 'Discover how smart home technology can enhance your lifestyle, improve security, and save you money on energy bills.',
     image: 'https://dl.dropboxusercontent.com/scl/fi/b84rv14egjjfo4f354rpe/images-7.jpeg?rlkey=ugmcbm8o82ysy2e7ht6pxd16q&dl=1',
-    date: 'October 26, 2023',
+    date: new Date(),
     category: 'Innovation',
     aiHint: 'smart home'
   },
@@ -20,7 +21,7 @@ const blogPosts = [
     title: 'Is Solar Power Right for Your Business? A Cost-Benefit Analysis',
     description: 'We break down the costs and benefits of switching your commercial property to solar energy, including ROI and environmental impact.',
     image: 'https://dl.dropboxusercontent.com/scl/fi/j16xbnkr2jktpwxdwl39m/images-9.jpeg?rlkey=pbtq1vg4a959mdg0ftb9owly9&dl=1',
-    date: 'October 15, 2023',
+    date: new Date(),
     category: 'Energy',
     aiHint: 'commercial building'
   },
@@ -29,7 +30,7 @@ const blogPosts = [
     title: 'The Latest in CCTV Technology: What You Need to Know',
     description: 'From AI-powered analytics to 4K resolution, learn about the advancements in surveillance technology and how they can protect your property.',
     image: 'https://dl.dropboxusercontent.com/scl/fi/8sqpn62q7a0ijgj8i8gmq/images-14.jpeg?rlkey=txz8uuem4gsagyuk5mwycj4gr&dl=1',
-    date: 'September 28, 2023',
+    date: new Date(),
     category: 'Security',
     aiHint: 'surveillance camera'
   },
@@ -65,7 +66,7 @@ export default function BlogPage() {
                 <CardTitle className="text-xl">
                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </CardTitle>
-                <CardDescription>{post.date}</CardDescription>
+                <CardDescription>{format(post.date, 'MMMM d, yyyy')}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <p className="text-muted-foreground text-sm line-clamp-3">{post.description}</p>

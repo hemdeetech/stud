@@ -13,6 +13,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { notFound } from 'next/navigation';
+import { format } from 'date-fns';
 
 // In a real app, this data would likely come from a CMS or database
 const allPosts = {
@@ -24,7 +25,7 @@ const allPosts = {
       'https://dl.dropboxusercontent.com/scl/fi/wee6rmkiuqclpnbk1zug2/images-8.jpeg?rlkey=v06fm6h2w4bhqy84avvmho528&dl=1',
       'https://dl.dropboxusercontent.com/scl/fi/fychzxrnq2jt4he7diiyi/images-6.jpeg?rlkey=lyja0vbbo81uq2lug49wynqzv&dl=1'
     ],
-    date: 'October 26, 2023',
+    date: new Date(),
     category: 'Innovation',
     aiHint: 'smart home living room',
     content: (
@@ -51,7 +52,7 @@ const allPosts = {
         'https://dl.dropboxusercontent.com/scl/fi/ca8nrytc9wpwpyhdijc6j/images-10.jpeg?rlkey=wbn99f25wpjukm7jbch2nxcdn&dl=1',
         'https://dl.dropboxusercontent.com/scl/fi/xkcqe3f2529g6r17z5m35/images-11.jpeg?rlkey=zit0wzb073buz8uwu0shn0iqh&dl=1'
     ],
-    date: 'October 15, 2023',
+    date: new Date(),
     category: 'Energy',
     aiHint: 'commercial building solar',
     content: (
@@ -72,7 +73,7 @@ const allPosts = {
         'https://dl.dropboxusercontent.com/scl/fi/tjzkip0avp03nykfqgiqx/images-13.jpeg?rlkey=hvs2ag63rzu1h05t54z1jpray&dl=1',
         'https://dl.dropboxusercontent.com/scl/fi/yrg2qeut1izjf0ihiooei/images-12.jpeg?rlkey=r5wxv27qb1kibuu3dfml2udzz&dl=1'
     ],
-    date: 'September 28, 2023',
+    date: new Date(),
     category: 'Security',
     aiHint: 'surveillance camera grid',
     content: (
@@ -88,8 +89,8 @@ const allPosts = {
 };
 
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = allPosts[params.slug as keyof typeof allPosts];
+export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
+  const post = allPosts[slug as keyof typeof allPosts];
 
   // If the slug doesn't match any post, show a 404 page
   if (!post) {
@@ -112,7 +113,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <article>
             <Badge variant="outline" className="mb-4">{post.category}</Badge>
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl font-headline mb-4">{post.title}</h1>
-            <p className="text-muted-foreground text-lg mb-6">{post.date}</p>
+            <p className="text-muted-foreground text-lg mb-6">{format(post.date, 'MMMM d, yyyy')}</p>
             
             <Carousel className="w-full mb-8"
               opts={{
