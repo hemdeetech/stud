@@ -13,10 +13,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
   // In a real app, you would fetch post data based on the slug
   const post = {
-    slug: params.slug,
+    slug: slug,
     title: '5 Benefits of Smart Home Automation You Can\'t Ignore',
     images: [
       'https://dl.dropboxusercontent.com/scl/fi/b84rv14egjjfo4f354rpe/images-7.jpeg?rlkey=ugmcbm8o82ysy2e7ht6pxd16q&dl=1',
