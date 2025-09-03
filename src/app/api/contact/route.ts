@@ -12,16 +12,23 @@ export async function POST(request: Request) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
 
+    // Ensure environment variables are loaded
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('Email credentials are not set in environment variables.');
+        return new NextResponse('Server configuration error', { status: 500 });
+    }
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.EMAIL_PASS, // This should be your 16-digit App Password
       },
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`, // Use sender's name and email
+      from: `"${name}" <${process.env.EMAIL_USER}>`, // Send from your authenticated email
+      replyTo: email, // Set the user's email as the reply-to address
       to: process.env.EMAIL_USER, // Your receiving email address
       subject: `New Contact Form Submission: ${subject}`,
       html: `
