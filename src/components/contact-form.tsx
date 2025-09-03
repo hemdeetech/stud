@@ -96,7 +96,7 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Phone Number (Optional)</FormLabel>
               <FormControl>
-                <Input type="tel" placeholder="+1 (555) 123-4567" {...field} />
+                <Input type="tel" placeholder="+234" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
