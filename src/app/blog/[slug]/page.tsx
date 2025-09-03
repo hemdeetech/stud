@@ -46,7 +46,11 @@ const allPosts = {
   'is-solar-power-right-for-your-business': {
     slug: 'is-solar-power-right-for-your-business',
     title: 'Is Solar Power Right for Your Business? A Cost-Benefit Analysis',
-    images: ['https://picsum.photos/800/450?random=8'],
+    images: [
+        'https://dl.dropboxusercontent.com/scl/fi/j16xbnkr2jktpwxdwl39m/images-9.jpeg?rlkey=pbtq1vg4a959mdg0ftb9owly9&dl=1',
+        'https://dl.dropboxusercontent.com/scl/fi/ca8nrytc9wpwpyhdijc6j/images-10.jpeg?rlkey=wbn99f25wpjukm7jbch2nxcdn&dl=1',
+        'https://dl.dropboxusercontent.com/scl/fi/xkcqe3f2529g6r17z5m35/images-11.jpeg?rlkey=zit0wzb073buz8uwu0shn0iqh&dl=1'
+    ],
     date: 'October 15, 2023',
     category: 'Energy',
     aiHint: 'commercial building solar',
