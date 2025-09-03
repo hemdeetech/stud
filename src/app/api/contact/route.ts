@@ -1,12 +1,10 @@
 
 import { NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
+import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    console.log('Received contact form body:', body);
-    // These keys (name, email, etc.) must match what the form sends.
     const { name, email, subject, message } = body;
 
     if (!name || !email || !subject || !message) {
@@ -14,23 +12,35 @@ export async function POST(request: Request) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
 
-    // The collection will be created automatically if it doesn't exist.
-    const submissionRef = adminDb.collection('contactSubmissions').doc();
-
-    // The object keys here are what the fields will be named in Firestore.
-    await submissionRef.set({
-      name,
-      email,
-      subject,
-      message,
-      submittedAt: new Date().toISOString(),
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
     });
 
-    console.log('Successfully saved to Firestore');
+    const mailOptions = {
+      from: `"${name}" <${email}>`, // Use sender's name and email
+      to: process.env.EMAIL_USER, // Your receiving email address
+      subject: `New Contact Form Submission: ${subject}`,
+      html: `
+        <h1>New Contact Form Submission</h1>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    console.log('Email sent successfully');
     return NextResponse.json({ message: 'Submission successful' }, { status: 200 });
+
   } catch (error) {
     console.error('Error in contact form submission:', error);
-    // It's better to not expose internal errors to the client.
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
