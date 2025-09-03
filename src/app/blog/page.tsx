@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -18,7 +19,7 @@ const blogPosts = [
     slug: 'is-solar-power-right-for-your-business',
     title: 'Is Solar Power Right for Your Business? A Cost-Benefit Analysis',
     description: 'We break down the costs and benefits of switching your commercial property to solar energy, including ROI and environmental impact.',
-    image: 'https://picsum.photos/600/400?random=8',
+    image: 'https://dl.dropboxusercontent.com/scl/fi/j16xbnkr2jktpwxdwl39m/images-9.jpeg?rlkey=pbtq1vg4a959mdg0ftb9owly9&dl=1',
     date: 'October 15, 2023',
     category: 'Energy',
     aiHint: 'commercial building'
