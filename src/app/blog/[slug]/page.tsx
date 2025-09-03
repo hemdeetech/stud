@@ -67,7 +67,11 @@ const allPosts = {
   'the-latest-in-cctv-technology': {
     slug: 'the-latest-in-cctv-technology',
     title: 'The Latest in CCTV Technology: What You Need to Know',
-    images: ['https://picsum.photos/800/450?random=9'],
+    images: [
+        'https://dl.dropboxusercontent.com/scl/fi/8sqpn62q7a0ijgj8i8gmq/images-14.jpeg?rlkey=txz8uuem4gsagyuk5mwycj4gr&dl=1',
+        'https://dl.dropboxusercontent.com/scl/fi/tjzkip0avp03nykfqgiqx/images-13.jpeg?rlkey=hvs2ag63rzu1h05t54z1jpray&dl=1',
+        'https://dl.dropboxusercontent.com/scl/fi/yrg2qeut1izjf0ihiooei/images-12.jpeg?rlkey=r5wxv27qb1kibuu3dfml2udzz&dl=1'
+    ],
     date: 'September 28, 2023',
     category: 'Security',
     aiHint: 'surveillance camera grid',
@@ -84,8 +88,8 @@ const allPosts = {
 };
 
 
-export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
-  const post = allPosts[slug as keyof typeof allPosts];
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = allPosts[params.slug as keyof typeof allPosts];
 
   // If the slug doesn't match any post, show a 404 page
   if (!post) {

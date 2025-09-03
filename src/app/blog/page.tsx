@@ -28,7 +28,7 @@ const blogPosts = [
     slug: 'the-latest-in-cctv-technology',
     title: 'The Latest in CCTV Technology: What You Need to Know',
     description: 'From AI-powered analytics to 4K resolution, learn about the advancements in surveillance technology and how they can protect your property.',
-    image: 'https://picsum.photos/600/400?random=9',
+    image: 'https://dl.dropboxusercontent.com/scl/fi/8sqpn62q7a0ijgj8i8gmq/images-14.jpeg?rlkey=txz8uuem4gsagyuk5mwycj4gr&dl=1',
     date: 'September 28, 2023',
     category: 'Security',
     aiHint: 'surveillance camera'
