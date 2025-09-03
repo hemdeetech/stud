@@ -1,9 +1,13 @@
 
+"use client";
+
 import Link from 'next/link';
 import { Facebook, Instagram, Phone, Youtube } from 'lucide-react';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -37,6 +41,41 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export function Footer() {
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to subscribe. Please try again.');
+      }
+
+      toast({
+        title: 'Subscription Successful!',
+        description: "You've been added to our newsletter.",
+      });
+      setEmail('');
+    } catch (error: any) {
+      toast({
+        title: 'Error',
+        description: error.message || 'Something went wrong.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-secondary">
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -46,9 +85,19 @@ export function Footer() {
             <p className="text-muted-foreground text-sm mb-4">
               Get the latest news, updates, and special offers delivered directly to your inbox.
             </p>
-            <form className="flex w-full max-w-sm items-center space-x-2">
-              <Input type="email" placeholder="Email" className="bg-background" />
-              <Button type="submit">Subscribe</Button>
+            <form className="flex w-full max-w-sm items-center space-x-2" onSubmit={handleSubmit}>
+              <Input 
+                type="email" 
+                placeholder="Email" 
+                className="bg-background" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? 'Subscribing...' : 'Subscribe'}
+              </Button>
             </form>
           </div>
           
