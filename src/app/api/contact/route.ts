@@ -5,16 +5,17 @@ import { adminDb } from '@/lib/firebase-admin';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    // These keys (name, email, etc.) must match what the form sends.
     const { name, email, subject, message } = body;
 
     if (!name || !email || !subject || !message) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
 
-    // Save the submission to a "contactSubmissions" collection.
-    // You can view these messages for free in your Firebase Console.
+    // The collection will be created automatically if it doesn't exist.
     const submissionRef = adminDb.collection('contactSubmissions').doc();
 
+    // The object keys here are what the fields will be named in Firestore.
     await submissionRef.set({
       name,
       email,
