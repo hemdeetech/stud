@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, phone, subject, message } = body;
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !phone || !subject || !message) {
       console.error('Missing required fields', body);
       return new NextResponse('Missing required fields', { status: 400 });
     }
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         <h1>New Contact Form Submission</h1>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br>')}</p>
