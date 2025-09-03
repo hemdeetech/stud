@@ -84,8 +84,8 @@ const allPosts = {
 };
 
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = allPosts[params.slug as keyof typeof allPosts];
+export default function BlogPostPage({ params: { slug } }: { params: { slug: string } }) {
+  const post = allPosts[slug as keyof typeof allPosts];
 
   // If the slug doesn't match any post, show a 404 page
   if (!post) {
