@@ -10,15 +10,15 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, phone, subject, message } = body;
 
+    // Ensure environment variables are loaded and log for debugging
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('Email credentials are not set in environment variables.');
+        return new NextResponse('Server configuration error: Missing email credentials.', { status: 500 });
+    }
+
     if (!name || !email || !phone || !subject || !message) {
       console.error('Missing required fields', body);
       return new NextResponse('Missing required fields', { status: 400 });
-    }
-
-    // Ensure environment variables are loaded
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.error('Email credentials are not set in environment variables.');
-        return new NextResponse('Server configuration error', { status: 500 });
     }
 
     const transporter = nodemailer.createTransport({
@@ -52,6 +52,8 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error('Error in contact form submission:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    // Provide a more specific error message if possible
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return new NextResponse(`Internal Server Error: ${errorMessage}`, { status: 500 });
   }
 }
