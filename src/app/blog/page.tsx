@@ -9,7 +9,7 @@ const blogPosts = [
     slug: '5-benefits-of-smart-home-automation',
     title: '5 Benefits of Smart Home Automation You Can\'t Ignore',
     description: 'Discover how smart home technology can enhance your lifestyle, improve security, and save you money on energy bills.',
-    image: 'https://picsum.photos/600/400?random=7',
+    image: 'https://dl.dropboxusercontent.com/scl/fi/b84rv14egjjfo4f354rpe/images-7.jpeg?rlkey=ugmcbm8o82ysy2e7ht6pxd16q&dl=1',
     date: 'October 26, 2023',
     category: 'Innovation',
     aiHint: 'smart home'
