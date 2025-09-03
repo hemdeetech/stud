@@ -17,6 +17,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'HDTC',
   description: 'Hem Dee Tech Company for electrical installations, smart homes, and more.',
+  icons: {
+    icon: 'https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png',
+  },
 };
 
 export default function RootLayout({
