@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { Facebook, Instagram, Phone, Youtube } from 'lucide-react';
 import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -38,47 +40,54 @@ export function Footer() {
   return (
     <footer className="bg-secondary">
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="flex flex-col items-start">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Logo" width={40} height={40} className="rounded-full" />
-              <span className="font-bold text-xl text-foreground">HDTC</span>
-            </Link>
-            <p className="text-muted-foreground text-sm">
-              Your trusted partner for modern electrical and tech solutions.
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div>
+            <h3 className="font-semibold mb-4">Subscribe to our Newsletter</h3>
+            <p className="text-muted-foreground text-sm mb-4">
+              Get the latest news, updates, and special offers delivered directly to your inbox.
             </p>
+            <form className="flex w-full max-w-sm items-center space-x-2">
+              <Input type="email" placeholder="Email" className="bg-background" />
+              <Button type="submit">Subscribe</Button>
+            </form>
           </div>
           
-          <div className="md:justify-self-center">
-            <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
-              <li><Link href="/services" className="text-muted-foreground hover:text-primary">Services</Link></li>
-              <li><Link href="/portfolio" className="text-muted-foreground hover:text-primary">Portfolio</Link></li>
-              <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
-            </ul>
-          </div>
-          
-          <div className="md:justify-self-end">
-            <h3 className="font-semibold mb-4">Contact & Socials</h3>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <a href="tel:+2349036683558" className="text-muted-foreground hover:text-primary">+2349036683558</a>
-              </li>
-              <li className="mt-4">
-                <div className="flex items-center gap-3">
-                    <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
-                    <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
-                    <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><XIcon className="h-5 w-5" /></a>
-                    <a href="https://www.tiktok.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><TikTokIcon className="h-5 w-5" /></a>
-                    <a href="https://youtube.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Youtube className="h-5 w-5" /></a>
-                </div>
-              </li>
-            </ul>
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-2 lg:col-span-2">
+              <div className="md:justify-self-center">
+                <h3 className="font-semibold mb-4">Quick Links</h3>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
+                  <li><Link href="/services" className="text-muted-foreground hover:text-primary">Services</Link></li>
+                  <li><Link href="/portfolio" className="text-muted-foreground hover:text-primary">Portfolio</Link></li>
+                  <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
+                </ul>
+              </div>
+              
+              <div className="md:justify-self-end">
+                <h3 className="font-semibold mb-4">Contact & Socials</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    <a href="tel:+2349036683558" className="text-muted-foreground hover:text-primary">+2349036683558</a>
+                  </li>
+                  <li className="mt-4">
+                    <div className="flex items-center gap-3">
+                        <a href="https://www.facebook.com/share/1YbpmmguxM/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></a>
+                        <a href="https://www.instagram.com/wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></a>
+                        <a href="https://x.com/WeAreHdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><XIcon className="h-5 w-5" /></a>
+                        <a href="https://www.tiktok.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><TikTokIcon className="h-5 w-5" /></a>
+                        <a href="https://youtube.com/@wearehdtc" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Youtube className="h-5 w-5" /></a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
           </div>
         </div>
-        <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
+        <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground flex flex-col sm:flex-row justify-between items-center">
+            <Link href="/" className="flex items-center gap-2 mb-4 sm:mb-0">
+              <Image src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png" alt="HDTC Logo" width={32} height={32} className="rounded-full" />
+              <span className="font-bold text-lg text-foreground">HDTC</span>
+            </Link>
           <p>&copy; {new Date().getFullYear()} HDTC. All rights reserved.</p>
         </div>
       </div>
