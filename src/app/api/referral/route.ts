@@ -41,6 +41,8 @@ export async function POST(request: Request) {
     // The order of fields here must exactly match the order of columns in your Google Sheet
     const formData = new FormData();
     formData.append('timestamp', new Date().toISOString());
+    // The Apps Script will generate the final sequential ID
+    formData.append('userId', 'hdtc_rp'); 
     formData.append('firstName', referralData.firstName);
     formData.append('lastName', referralData.lastName);
     formData.append('phoneNumber', referralData.phoneNumber);
