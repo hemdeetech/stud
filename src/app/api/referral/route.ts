@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
     if (!result.success) {
       console.error('Invalid referral form data:', result.error.flatten());
-      return new NextResponse(result.error.errors[0].message, { status: 400 });
+      return new NextResponse(JSON.stringify({ error: result.error.errors[0].message }), { status: 400 });
     }
     
     const referralData = result.data;
@@ -82,23 +82,12 @@ export async function POST(request: Request) {
 
     if (!scriptUrl) {
       console.error('Google Apps Script URL is not set in environment variables.');
-      return new NextResponse('Server configuration error: Missing Google Script URL.', { status: 500 });
+      return new NextResponse(JSON.stringify({ error: 'Server configuration error: Missing Google Script URL.' }), { status: 500 });
     }
 
     const payload = {
         timestamp: new Date().toISOString(),
-        firstName: referralData.firstName,
-        lastName: referralData.lastName,
-        phoneNumber: referralData.phoneNumber,
-        altPhoneNumber: referralData.altPhoneNumber || 'N/A',
-        email: referralData.email,
-        altEmail: referralData.altEmail || 'N/A',
-        country: referralData.country,
-        state: referralData.state,
-        city: referralData.city,
-        bankName: referralData.bankName,
-        accountName: referralData.accountName,
-        accountNumber: referralData.accountNumber,
+        ...referralData,
         userIdPrefix: 'hdtc_rp',
     };
     
@@ -113,11 +102,17 @@ export async function POST(request: Request) {
       cache: 'no-store',
     });
     
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error response from Apps Script:', response.status, errorText);
+        throw new Error(`The script returned an error: ${errorText}`);
+    }
+
     const scriptResponse = await response.json();
 
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
-        console.error('Invalid response from Apps Script:', scriptResponse);
+        console.error('Invalid JSON response from Apps Script:', scriptResponse);
         throw new Error('Failed to get a valid response from the registration script.');
     }
 
@@ -128,7 +123,7 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error('Error in referral registration:', error);
-    const errorMessage = error.response?.data?.error || error.message || 'An unknown error occurred';
-    return new NextResponse(`Internal Server Error: ${errorMessage}`, { status: 500 });
+    const errorMessage = error.message || 'An unknown error occurred';
+    return new NextResponse(JSON.stringify({ error: `Internal Server Error: ${errorMessage}` }), { status: 500 });
   }
 }
