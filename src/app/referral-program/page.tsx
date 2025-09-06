@@ -1,7 +1,20 @@
+
+"use client";
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Gift, ArrowRight, DollarSign } from 'lucide-react';
 import Link from 'next/link';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { ReferralForm } from '@/components/referral-form';
+
 
 export default function ReferralProgramPage() {
   return (
@@ -24,8 +37,8 @@ export default function ReferralProgramPage() {
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">1</div>
                 <div>
-                  <h3 className="font-semibold">Refer a Client</h3>
-                  <p className="text-muted-foreground">Tell your friends, family, or colleagues about our services. Whether you're a satisfied client or a student, everyone is welcome to join.</p>
+                  <h3 className="font-semibold">Register & Refer</h3>
+                  <p className="text-muted-foreground">First, sign up for our referral program using the registration form. Then, tell your friends, family, or colleagues about our services.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -70,13 +83,24 @@ export default function ReferralProgramPage() {
         <div className="text-center mt-20">
           <h2 className="text-2xl font-bold tracking-tight">Ready to Start Earning?</h2>
           <p className="mt-2 text-muted-foreground max-w-xl mx-auto">
-            Contact us today to register for the referral program or to refer someone you know.
+            Click the button below to fill out the registration form. It only takes a minute!
           </p>
-          <Button asChild size="lg" className="mt-6">
-            <Link href="/contact">
-              Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" className="mt-6">
+                  Register Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Referral Program Registration</DialogTitle>
+                  <DialogDescription>
+                    Fill out your details below to join the program. All fields are required.
+                  </DialogDescription>
+                </DialogHeader>
+                <ReferralForm />
+              </DialogContent>
+            </Dialog>
         </div>
       </div>
     </div>
