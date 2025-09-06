@@ -4,6 +4,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import axios from 'axios';
+import nodemailer from 'nodemailer';
 
 const referralSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters."),
@@ -19,6 +20,53 @@ const referralSchema = z.object({
   accountName: z.string().min(2, "Account name is required."),
   bankName: z.string().min(2, "Bank name is required."),
 });
+
+async function sendConfirmationEmail(email: string, firstName: string, userId: string) {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('Email credentials for sending confirmation are not set.');
+        // We don't want to block the user registration if the confirmation email fails
+        // So we log the error and continue.
+        return;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+        from: `"HDTC Referral Program" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'Welcome to the HDTC Referral Program!',
+        html: `
+            <h1>Welcome, ${firstName}!</h1>
+            <p>Thank you for joining the Hem Dee Tech Company (HDTC) referral program. We are excited to have you on board!</p>
+            <p>Your unique Referral ID is: <strong>${userId}</strong></p>
+            <p>Please provide this ID to any new clients you refer to us. This is how we will track your referrals and ensure you get your commission.</p>
+            <h2>How to Earn:</h2>
+            <ol>
+                <li>Find a potential client who needs our services.</li>
+                <li>Tell them about HDTC and have them contact us for a project.</li>
+                <li>Ensure they mention your name and provide your Referral ID when they contact us.</li>
+                <li>Once the project is completed and paid for, you will receive your commission (20%-30% of the project value).</li>
+            </ol>
+            <p>If you have any questions, feel free to reply to this email or visit our website.</p>
+            <p>Happy Earning!</p>
+            <p><strong>The HDTC Team</strong></p>
+        `,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Confirmation email sent to ${email}`);
+    } catch (error) {
+        console.error(`Failed to send confirmation email to ${email}:`, error);
+    }
+}
+
 
 export async function POST(request: Request) {
   try {
@@ -38,11 +86,8 @@ export async function POST(request: Request) {
       return new NextResponse('Server configuration error: Missing Google Script URL.', { status: 500 });
     }
 
-    // The order of fields here must exactly match the order of columns in your Google Sheet
     const formData = new FormData();
     formData.append('timestamp', new Date().toISOString());
-    // The Apps Script will generate the final sequential ID
-    formData.append('userId', 'hdtc_rp'); 
     formData.append('firstName', referralData.firstName);
     formData.append('lastName', referralData.lastName);
     formData.append('phoneNumber', referralData.phoneNumber);
@@ -56,10 +101,20 @@ export async function POST(request: Request) {
     formData.append('accountName', referralData.accountName);
     formData.append('accountNumber', referralData.accountNumber);
     
+    // The Apps Script will handle generating the final sequential ID
+    formData.append('userIdPrefix', 'hdtc_rp'); 
 
-    await axios.post(scriptUrl, formData);
+    // The Apps script needs to be configured to return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
+    const { data: scriptResponse } = await axios.post(scriptUrl, formData);
 
-    return NextResponse.json({ message: 'Registration successful! Your details have been submitted.' }, { status: 200 });
+    if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
+        throw new Error('Failed to get a valid response from the registration script.');
+    }
+
+    // Send confirmation email with the unique ID from the script
+    await sendConfirmationEmail(referralData.email, referralData.firstName, scriptResponse.userId);
+
+    return NextResponse.json({ message: 'Registration successful! Please check your email for your unique Referral ID.' }, { status: 200 });
 
   } catch (error: any) {
     console.error('Error in referral registration:', error);
