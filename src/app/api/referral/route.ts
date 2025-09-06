@@ -3,7 +3,6 @@
 
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import axios from 'axios';
 import nodemailer from 'nodemailer';
 
 const referralSchema = z.object({
@@ -104,11 +103,18 @@ export async function POST(request: Request) {
     };
     
     // The Apps script needs to be configured to return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
-    const { data: scriptResponse } = await axios.post(scriptUrl, payload, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+      // Prevent Next.js from caching this dynamic request
+      cache: 'no-store',
     });
+    
+    const scriptResponse = await response.json();
+
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
         console.error('Invalid response from Apps Script:', scriptResponse);
