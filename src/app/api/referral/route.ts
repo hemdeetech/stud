@@ -86,28 +86,32 @@ export async function POST(request: Request) {
       return new NextResponse('Server configuration error: Missing Google Script URL.', { status: 500 });
     }
 
-    const formData = new FormData();
-    formData.append('timestamp', new Date().toISOString());
-    formData.append('firstName', referralData.firstName);
-    formData.append('lastName', referralData.lastName);
-    formData.append('phoneNumber', referralData.phoneNumber);
-    formData.append('altPhoneNumber', referralData.altPhoneNumber || 'N/A');
-    formData.append('email', referralData.email);
-    formData.append('altEmail', referralData.altEmail || 'N/A');
-    formData.append('country', referralData.country);
-    formData.append('state', referralData.state);
-    formData.append('city', referralData.city);
-    formData.append('bankName', referralData.bankName);
-    formData.append('accountName', referralData.accountName);
-    formData.append('accountNumber', referralData.accountNumber);
+    const payload = {
+        timestamp: new Date().toISOString(),
+        firstName: referralData.firstName,
+        lastName: referralData.lastName,
+        phoneNumber: referralData.phoneNumber,
+        altPhoneNumber: referralData.altPhoneNumber || 'N/A',
+        email: referralData.email,
+        altEmail: referralData.altEmail || 'N/A',
+        country: referralData.country,
+        state: referralData.state,
+        city: referralData.city,
+        bankName: referralData.bankName,
+        accountName: referralData.accountName,
+        accountNumber: referralData.accountNumber,
+        userIdPrefix: 'hdtc_rp',
+    };
     
-    // The Apps Script will handle generating the final sequential ID
-    formData.append('userIdPrefix', 'hdtc_rp'); 
-
     // The Apps script needs to be configured to return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
-    const { data: scriptResponse } = await axios.post(scriptUrl, formData);
+    const { data: scriptResponse } = await axios.post(scriptUrl, payload, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
+        console.error('Invalid response from Apps Script:', scriptResponse);
         throw new Error('Failed to get a valid response from the registration script.');
     }
 
