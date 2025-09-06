@@ -1,13 +1,28 @@
 
 import { NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
+import mailchimp from '@mailchimp/mailchimp_marketing';
 import { z } from 'zod';
 
 const subscribeSchema = z.object({
   email: z.string().email('Invalid email address.'),
 });
 
+// Configure the Mailchimp client
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_SERVER_PREFIX,
+});
+
 export async function POST(request: Request) {
+  // Check for required environment variables
+  if (!process.env.MAILCHIMP_API_KEY || !process.env.MAILCHIMP_AUDIENCE_ID || !process.env.MAILCHIMP_SERVER_PREFIX) {
+    console.error('Mailchimp environment variables are not set.');
+    return new NextResponse(
+      JSON.stringify({ error: 'Server configuration error: Missing Mailchimp credentials.' }), 
+      { status: 500 }
+    );
+  }
+
   try {
     const body = await request.json();
     const result = subscribeSchema.safeParse(body);
@@ -17,18 +32,39 @@ export async function POST(request: Request) {
     }
     
     const { email } = result.data;
+    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 
-    // Use the email address as the document ID to prevent duplicates
-    const subscriberRef = adminDb.collection('newsletterSubscribers').doc(email);
+    const response = await mailchimp.lists.addListMember(audienceId, {
+      email_address: email,
+      status: 'subscribed',
+    });
+
+    // Check for Mailchimp-specific errors (e.g., member already exists)
+    if (response.status >= 400) {
+      const errorTitle = (response as any).title;
+      if (errorTitle === 'Member Exists') {
+        return NextResponse.json({ message: 'You are already subscribed!' }, { status: 200 });
+      }
+      return new NextResponse(
+        JSON.stringify({ error: `Mailchimp error: ${errorTitle}` }), 
+        { status: 400 }
+      );
+    }
     
-    await subscriberRef.set({
-      email,
-      subscribedAt: new Date().toISOString(),
-    }, { merge: true }); // Use merge:true to avoid overwriting if they already exist
+    return NextResponse.json({ message: 'Subscription successful!' }, { status: 200 });
 
-    return NextResponse.json({ message: 'Subscription successful' }, { status: 200 });
-  } catch (error) {
-    console.error('Error in newsletter subscription:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+  } catch (error: any) {
+    console.error('Error in Mailchimp subscription:', error);
+    
+    // Handle cases where the user might already be subscribed
+    if (error.response?.body?.title === 'Member Exists') {
+        return NextResponse.json({ message: 'You are already subscribed!' }, { status: 200 });
+    }
+
+    const errorMessage = error.response?.body?.detail || 'An unknown error occurred.';
+    return new NextResponse(
+        JSON.stringify({ error: `Internal Server Error: ${errorMessage}` }), 
+        { status: 500 }
+    );
   }
 }
