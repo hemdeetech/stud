@@ -56,13 +56,15 @@ export function Footer() {
         body: JSON.stringify({ email }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to subscribe. Please try again.');
+        throw new Error(result.error || 'Failed to subscribe. Please try again.');
       }
 
       toast({
-        title: 'Subscription Successful!',
-        description: "You've been added to our newsletter.",
+        title: 'Success!',
+        description: result.message || "You've been added to our newsletter.",
       });
       setEmail('');
     } catch (error: any) {
