@@ -1,7 +1,10 @@
 
 import { NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
 import { z } from 'zod';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const referralSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters."),
@@ -30,17 +33,48 @@ export async function POST(request: Request) {
     
     const referralData = result.data;
 
-    // Use email as a unique identifier to prevent duplicate registrations
-    const referralRef = adminDb.collection('referrals').doc(referralData.email);
-    
-    await referralRef.set({
-      ...referralData,
-      registeredAt: new Date().toISOString(),
-    }, { merge: true }); // Use merge:true to avoid overwriting if they update details
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        console.error('Email credentials are not set in environment variables.');
+        return new NextResponse('Server configuration error: Missing email credentials.', { status: 500 });
+    }
 
-    return NextResponse.json({ message: 'Registration successful' }, { status: 200 });
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: `"${referralData.firstName} ${referralData.lastName}" <${process.env.EMAIL_USER}>`,
+      replyTo: referralData.email,
+      to: process.env.EMAIL_USER,
+      subject: `New Referral Program Registration: ${referralData.firstName} ${referralData.lastName}`,
+      html: `
+        <h1>New Referral Program Registration</h1>
+        <h2>Personal Details</h2>
+        <p><strong>First Name:</strong> ${referralData.firstName}</p>
+        <p><strong>Last Name:</strong> ${referralData.lastName}</p>
+        <p><strong>Phone Number:</strong> ${referralData.phoneNumber}</p>
+        <p><strong>Alternative Phone Number:</strong> ${referralData.altPhoneNumber || 'N/A'}</p>
+        <p><strong>Email Address:</strong> ${referralData.email}</p>
+        <p><strong>Alternative Email:</strong> ${referralData.altEmail || 'N/A'}</p>
+        <p><strong>Location:</strong> ${referralData.city}, ${referralData.state}, ${referralData.country}</p>
+        <hr>
+        <h2>Account Details</h2>
+        <p><strong>Bank Name:</strong> ${referralData.bankName}</p>
+        <p><strong>Account Name:</strong> ${referralData.accountName}</p>
+        <p><strong>Account Number:</strong> ${referralData.accountNumber}</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return NextResponse.json({ message: 'Registration successful! The details have been sent to our team.' }, { status: 200 });
   } catch (error) {
     console.error('Error in referral registration:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return new NextResponse(`Internal Server Error: ${errorMessage}`, { status: 500 });
   }
 }

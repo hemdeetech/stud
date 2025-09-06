@@ -56,19 +56,22 @@ export function ReferralForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Something went wrong during registration.');
+        const errorText = await response.text();
+        throw new Error(errorText || 'Something went wrong during registration.');
       }
+
+      const result = await response.json();
 
       toast({
         title: "Registration Successful!",
-        description: "Thank you for joining our referral program. We will be in touch.",
+        description: result.message || "Thank you for joining our referral program. We will be in touch.",
       });
       form.reset();
 
-    } catch (error) {
+    } catch (error: any) {
        toast({
         title: "Error",
-        description: "Failed to register. Please try again later.",
+        description: error.message || "Failed to register. Please try again later.",
         variant: "destructive",
       });
     }
