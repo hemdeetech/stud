@@ -13,8 +13,8 @@ const faqs = [
   {
     question: "What services does HDTC offer?",
     answer: (
-      <p>
-        HDTC provides a wide range of services including:
+      <div>
+        <p>HDTC provides a wide range of services including:</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>House & office wiring installations</li>
             <li>Electrical maintenance & troubleshooting</li>
@@ -23,7 +23,7 @@ const faqs = [
             <li>Smart home integration & custom gadget design</li>
             <li>Online/phone electrical consultations</li>
         </ul>
-      </p>
+      </div>
     )
   },
   {
@@ -54,7 +54,7 @@ const faqs = [
     question: "How can I book a service?",
     answer: (
       <div>
-        You can book via:
+        <p>You can book via:</p>
         <ul className="list-none mt-2 space-y-2">
             <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
