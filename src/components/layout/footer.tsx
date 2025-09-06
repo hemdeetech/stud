@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -59,7 +58,7 @@ export function Footer() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to subscribe. Please try again.');
+        throw new Error(result.error || 'An unknown error occurred.');
       }
 
       toast({
@@ -70,7 +69,7 @@ export function Footer() {
     } catch (error: any) {
       toast({
         title: 'Error',
-        description: error.message || 'Something went wrong.',
+        description: error.message || 'Failed to subscribe. Please try again.',
         variant: 'destructive',
       });
     } finally {
