@@ -19,7 +19,6 @@ const navItems = [
   { href: "/referral-program", label: "Referral Program" },
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
-  { href: "/ai-assistant", label: "AI Assistant" },
   { href: "/contact", label: "Contact Us" },
 ];
 
