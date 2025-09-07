@@ -16,7 +16,7 @@ if (!admin.apps.length) {
             // This is not an error, as the admin SDK might not be needed.
             console.log("Firebase Admin SDK not initialized: FIREBASE_SERVICE_ACCOUNT_KEY is not set.");
         } else {
-             // Correctly parse the multi-line private key
+             // The service account key from environment variables should already be a valid JSON string.
             const serviceAccount = JSON.parse(serviceAccountString);
             
             admin.initializeApp({
@@ -30,10 +30,13 @@ if (!admin.apps.length) {
 
     } catch (error: any) {
         console.error("Failed to initialize Firebase Admin SDK:", error.message);
+        // More detailed error for parsing issues
+        if (error instanceof SyntaxError) {
+            console.error("This might be due to an improperly formatted FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
+        }
     }
 } else {
     adminDb = admin.firestore();
 }
-
 
 export { adminDb };
