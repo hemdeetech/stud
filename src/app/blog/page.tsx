@@ -49,7 +49,7 @@ export default function BlogPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {blogPosts.map((post) => (
-            <Card key={post.slug} className="overflow-hidden group flex flex-col">
+            <Card key={post.slug} className="overflow-hidden flex flex-col">
               <Link href={`/blog/${post.slug}`} className="block">
                 <div className="relative overflow-hidden h-60">
                   <Image

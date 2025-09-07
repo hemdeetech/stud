@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
@@ -59,7 +60,7 @@ export default function PortfolioPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {projects.map((project) => (
-            <Card key={project.title} className="overflow-hidden group">
+            <Card key={project.title} className="overflow-hidden">
               <div className="relative overflow-hidden">
                 <Image
                   src={project.image}
