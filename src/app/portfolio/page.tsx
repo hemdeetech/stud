@@ -66,7 +66,7 @@ export default function PortfolioPage() {
                   alt={project.title}
                   width={600}
                   height={400}
-                  className="object-cover w-full h-60 transform group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover w-full h-60"
                   data-ai-hint={project.aiHint}
                 />
               </div>

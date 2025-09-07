@@ -56,7 +56,7 @@ export default function BlogPage() {
                     src={post.image}
                     alt={post.title}
                     fill
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover"
                     data-ai-hint={post.aiHint}
                   />
                 </div>
