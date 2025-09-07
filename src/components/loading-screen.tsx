@@ -10,15 +10,13 @@ export function LoadingScreen() {
   const [hiding, setHiding] = useState(false);
 
   useEffect(() => {
-    // This effect now tracks page changes to reset the loading screen.
-    // However, we only want the *initial* load animation.
-    // The key is that this component only runs once on the client-side initial load.
+    // This effect ensures the loading screen is only shown on the initial client-side load.
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500); // Minimum time the loader is visible
 
     return () => clearTimeout(timer);
-  }, []); // Changed to empty dependency array to ensure it only runs once on initial mount
+  }, []); // Empty dependency array ensures this runs only once on initial mount
 
    useEffect(() => {
     if (!isLoading) {
