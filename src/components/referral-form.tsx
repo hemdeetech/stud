@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useLoading } from "@/context/loading-context";
+import { useState } from "react";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters."),
@@ -27,7 +27,7 @@ const formSchema = z.object({
 
 export function ReferralForm() {
   const { toast } = useToast();
-  const { showLoader, hideLoader } = useLoading();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +47,7 @@ export function ReferralForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    showLoader();
+    setIsSubmitting(true);
     try {
       const response = await fetch('/api/referral', {
         method: 'POST',
@@ -57,12 +57,11 @@ export function ReferralForm() {
         body: JSON.stringify(values),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || 'Something went wrong during registration.');
-      }
-
       const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Something went wrong during registration.');
+      }
 
       toast({
         title: "Registration Successful!",
@@ -77,7 +76,7 @@ export function ReferralForm() {
         variant: "destructive",
       });
     } finally {
-        hideLoader();
+        setIsSubmitting(false);
     }
   }
 
@@ -247,8 +246,8 @@ export function ReferralForm() {
             />
         </div>
         
-        <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Submitting..." : "Submit Registration"}
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Registration"}
         </Button>
       </form>
     </Form>

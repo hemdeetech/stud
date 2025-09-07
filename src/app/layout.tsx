@@ -9,7 +9,6 @@ import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { LoadingScreen } from '@/components/loading-screen';
-import { LoadingProvider } from '@/context/loading-context';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 const inter = Inter({
@@ -33,7 +32,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={cn("font-body antialiased", inter.variable)}>
-        <LoadingProvider>
           <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -46,8 +44,13 @@ export default function RootLayout({
             <Footer />
             <WhatsAppButton />
             <Toaster />
+            <ProgressBar
+              height="4px"
+              color="hsl(var(--primary))"
+              options={{ showSpinner: false }}
+              shallowRouting
+            />
           </ThemeProvider>
-        </LoadingProvider>
       </body>
     </html>
   );
