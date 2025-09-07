@@ -2,9 +2,6 @@
 import { NextResponse } from 'next/server';
 import mailchimp from '@mailchimp/mailchimp_marketing';
 import { z } from 'zod';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 const subscribeSchema = z.object({
   email: z.string().email('Invalid email address.'),
