@@ -1,6 +1,7 @@
 
 import {genkit, Plugin} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
+import {nextPlugin} from '@genkit-ai/next';
 
 const MockPlugin: Plugin<void> = async () => {
   return {
@@ -18,6 +19,7 @@ const MockPlugin: Plugin<void> = async () => {
 export const ai = genkit({
   plugins: [
     process.env.GEMINI_API_KEY ? googleAI() : MockPlugin(),
+    nextPlugin(),
   ],
   enableTracingAndMetrics: true,
 });
