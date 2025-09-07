@@ -2,12 +2,12 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// It's better to read env variables outside the handler
-// to ensure they are available at server startup.
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
-
 export async function POST(request: Request) {
+  // Moved environment variable access and transporter creation inside the handler
+  // to prevent server crashes on startup if variables are not set.
+  const emailUser = process.env.EMAIL_USER;
+  const emailPass = process.env.EMAIL_PASS;
+
   try {
     const body = await request.json();
     // Add server-side validation for better security
