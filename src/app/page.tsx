@@ -41,7 +41,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Why Choose Us?</div>
+              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Why Choose Us?</div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Your Trusted Tech Partner</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 We are committed to delivering excellence, safety, and innovation in every project we undertake.
@@ -88,7 +88,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             {featuredServices.map((service) => (
-              <Card key={service.name} className="text-center hover:shadow-lg transition-shadow duration-300">
+              <Card key={service.name} className="text-center">
                 <Link href={service.href}>
                   <CardHeader>
                     <div className="flex justify-center items-center mb-4">
@@ -114,7 +114,7 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8">
-               <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">Testimonials</div>
+               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Testimonials</div>
             </div>
             <blockquote className="text-lg font-semibold leading-snug lg:text-xl lg:leading-normal">
               “HDTC transformed our office with their smart home gadgets and professional wiring. The team was efficient, knowledgeable, and the 24/7 support gives us peace of mind. Highly recommended!“
