@@ -1,6 +1,4 @@
 
-'use server';
-
 import {genkit, Plugin} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
 
