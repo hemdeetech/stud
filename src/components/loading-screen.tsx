@@ -2,25 +2,36 @@
 "use client";
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useLoading } from '@/context/loading-context';
 
 export function LoadingScreen() {
-  const [loading, setLoading] = useState(true);
+  const { isLoading } = useLoading();
   const [hiding, setHiding] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
+    let hideTimeout: NodeJS.Timeout;
+
+    if (isLoading) {
+      setVisible(true);
+      setHiding(false);
+    } else {
       setHiding(true);
       // Wait for fade-out animation to complete before removing from DOM
-      setTimeout(() => setLoading(false), 500);
-    }, 1500); 
+      hideTimeout = setTimeout(() => setVisible(false), 500);
+    }
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+    };
+  }, [isLoading]);
 
-  if (!loading) return null;
+  // Render the component only if it should be visible
+  if (!visible) return null;
 
   return (
     <div

@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useLoading } from "@/context/loading-context";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -20,6 +21,7 @@ const formSchema = z.object({
 
 export function ContactForm() {
   const { toast } = useToast();
+  const { showLoader, hideLoader } = useLoading();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,6 +34,7 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    showLoader();
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -57,6 +60,8 @@ export function ContactForm() {
         description: "Failed to send message. Please try again later.",
         variant: "destructive",
       });
+    } finally {
+      hideLoader();
     }
   }
 

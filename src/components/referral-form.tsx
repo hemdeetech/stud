@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useLoading } from "@/context/loading-context";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters."),
@@ -27,6 +27,7 @@ const formSchema = z.object({
 
 export function ReferralForm() {
   const { toast } = useToast();
+  const { showLoader, hideLoader } = useLoading();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,6 +47,7 @@ export function ReferralForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    showLoader();
     try {
       const response = await fetch('/api/referral', {
         method: 'POST',
@@ -74,6 +76,8 @@ export function ReferralForm() {
         description: error.message || "Failed to register. Please try again later.",
         variant: "destructive",
       });
+    } finally {
+        hideLoader();
     }
   }
 
