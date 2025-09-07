@@ -23,6 +23,5 @@ export const ai = genkit({
     nextPlugin(),
     process.env.GEMINI_API_KEY ? googleAI() : MockPlugin(),
   ],
-  logLevel: 'debug',
   enableTracingAndMetrics: true,
 });
