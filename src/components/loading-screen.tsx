@@ -13,31 +13,31 @@ export function LoadingScreen() {
   const [hiding, setHiding] = useState(false);
 
   useEffect(() => {
-    // Hide loader after a delay. This simulates the initial load.
+    // This effect now tracks page changes to reset the loading screen.
+    // However, we only want the *initial* load animation.
+    // The key is that this component only runs once on the client-side initial load.
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500); // Minimum time the loader is visible
 
     return () => clearTimeout(timer);
-  }, []); // Empty array ensures this only runs once on initial mount
+  }, [pathname, searchParams]); // Rerunning on navigation change doesn't re-trigger the initial animation.
 
-  useEffect(() => {
+   useEffect(() => {
     if (!isLoading) {
-      setHiding(true);
+      // Start the fade-out transition
+      const hideTimer = setTimeout(() => setHiding(true), 100);
+      return () => clearTimeout(hideTimer);
     }
   }, [isLoading]);
   
-  if (isLoading || hiding) {
+  if (isLoading) {
     return (
       <div
         className={cn(
           'fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ease-in-out',
           hiding && 'opacity-0 pointer-events-none'
         )}
-        onTransitionEnd={() => {
-            // After fade-out, fully remove it
-            if(hiding) setHiding(false);
-        }}
       >
         <div className="logo-3d-container">
           <Image
