@@ -21,7 +21,7 @@ export function LoadingScreen() {
     }, 1500); // Minimum time the loader is visible
 
     return () => clearTimeout(timer);
-  }, [pathname, searchParams]); // Rerunning on navigation change doesn't re-trigger the initial animation.
+  }, []); // Changed to empty dependency array to ensure it only runs once on initial mount
 
    useEffect(() => {
     if (!isLoading) {
