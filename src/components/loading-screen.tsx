@@ -31,27 +31,28 @@ export function LoadingScreen() {
     }
   }, [isLoading]);
   
-  if (isLoading) {
-    return (
-      <div
-        className={cn(
-          'fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ease-in-out',
-          hiding && 'opacity-0 pointer-events-none'
-        )}
-      >
-        <div className="logo-3d-container">
-          <Image
-            src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png"
-            alt="HDTC Logo"
-            width={100}
-            height={100}
-            className="rounded-full logo-3d-image"
-            unoptimized
-          />
-        </div>
-      </div>
-    );
+  if (hiding) {
+    return null;
   }
-
-  return null;
+  
+  return (
+    <div
+      className={cn(
+        'fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-500 ease-in-out',
+        !isLoading && 'opacity-0'
+      )}
+    >
+      <div className="logo-3d-container">
+        <Image
+          src="https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png"
+          alt="HDTC Logo"
+          width={100}
+          height={100}
+          className="rounded-full logo-3d-image"
+          unoptimized
+          priority
+        />
+      </div>
+    </div>
+  );
 }
