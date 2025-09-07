@@ -4,11 +4,8 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { usePathname, useSearchParams } from 'next/navigation';
 
 export function LoadingScreen() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [hiding, setHiding] = useState(false);
 
