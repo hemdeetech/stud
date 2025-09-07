@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Gift, ArrowRight, DollarSign } from 'lucide-react';
+import { Gift, ArrowRight, DollarSign, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 import {
   Dialog,
@@ -100,6 +100,89 @@ export default function ReferralProgramPage() {
                 </DialogHeader>
                 <ReferralForm />
               </DialogContent>
+            </Dialog>
+
+             <Dialog>
+                <DialogTrigger asChild>
+                    <p className="text-xs text-muted-foreground mt-4">
+                        By registering, you agree to our <Button variant="link" className="p-0 h-auto text-xs">Terms & Conditions</Button>.
+                    </p>
+                </DialogTrigger>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle>HDTC Referral Program – Terms & Conditions</DialogTitle>
+                    </DialogHeader>
+                    <div className="text-sm text-muted-foreground space-y-4">
+                        <p>Welcome to the HDTC Referral Program! By participating in this program, you agree to the following terms and conditions:</p>
+                        
+                        <div className="space-y-3">
+                            <div>
+                                <h3 className="font-semibold text-foreground">1. Eligibility</h3>
+                                <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>The referral program is open to all individuals aged 16 years and above.</li>
+                                    <li>Employees, agents, and affiliates of HDTC are also eligible to participate.</li>
+                                    <li>Referrers must have an active phone number, email, or WhatsApp account to receive rewards.</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 className="font-semibold text-foreground">2. How It Works</h3>
+                                <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>Participants (Referrers) share HDTC’s services with others (Referees).</li>
+                                    <li>A referral is considered successful when: The referee signs up or books a service through HDTC, and the referee makes full payment for the service.</li>
+                                    <li>Referrers will earn 20% or 30% commission depending on the service rendered. The exact commission will be calculated based on the service type.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-foreground">3. Reward Payments</h3>
+                                 <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>Rewards will be paid via bank transfer or mobile money to the referrer.</li>
+                                    <li>Payment will be processed within 48 hours after the referred client’s transaction is completed.</li>
+                                    <li>Commissions are calculated based on the net amount received by HDTC (excluding discounts, refunds, or cancellations).</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 className="font-semibold text-foreground">4. Referral Restrictions</h3>
+                                <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>Self-referrals (using your own contact to claim a reward) are not allowed.</li>
+                                    <li>Multiple referrals of the same person will only count once, under the first referrer’s record.</li>
+                                    <li>Fraudulent, false, or abusive activities will lead to immediate disqualification from the program.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-foreground">5. Privacy & Data</h3>
+                                 <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>All referral details submitted are securely saved with HDTC and will only be used for the purpose of managing the referral program.</li>
+                                    <li>Your information will not be sold or shared with third parties without your consent.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-foreground">6. Program Modifications</h3>
+                                 <ul className="list-disc pl-5 mt-1 space-y-1">
+                                    <li>HDTC reserves the right to change, suspend, or terminate the referral program at any time without prior notice.</li>
+                                    <li>Any changes will be updated on HDTC’s official communication channels (website, social media, or WhatsApp).</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 className="font-semibold text-foreground">7. Governing Law</h3>
+                                <p>The HDTC Referral Program is powered by HDTC.</p>
+                            </div>
+                        </div>
+
+                        <div className="pt-4 border-t">
+                            <h3 className="font-semibold text-foreground">For questions or concerns, please contact:</h3>
+                             <ul className="list-none mt-2 space-y-2">
+                                <li className="flex items-center gap-2">
+                                    <Mail className="h-4 w-4 text-primary" />
+                                    <a href="mailto:hem.dee.technology@gmail.com" className="hover:underline">hem.dee.technology@gmail.com</a>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Phone className="h-4 w-4 text-primary" />
+                                    <a href="tel:09036683558" className="hover:underline">09036683558</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </DialogContent>
             </Dialog>
         </div>
       </div>
