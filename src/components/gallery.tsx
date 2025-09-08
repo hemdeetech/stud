@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import {
   Carousel,
   CarouselContent,
@@ -85,6 +85,12 @@ export const Gallery: React.FC<GalleryProps> = ({ media, children }) => {
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-4xl w-full h-auto max-h-[90vh] p-0 bg-transparent border-0 flex flex-col items-center justify-center">
+           <DialogHeader className="sr-only">
+            <DialogTitle>Project Media Gallery</DialogTitle>
+            <DialogDescription>
+              A carousel of images and videos for this project. Use the left and right arrows to navigate.
+            </DialogDescription>
+          </DialogHeader>
           <Carousel
             setApi={setApi}
             className="w-full"
@@ -129,5 +135,3 @@ export const Gallery: React.FC<GalleryProps> = ({ media, children }) => {
     </>
   );
 };
-
-    
