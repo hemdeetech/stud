@@ -1,54 +1,72 @@
 
+'use client';
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Gallery } from '@/components/gallery';
 
 const projects = [
   {
     title: 'Transformation from Ordinary to Stunning',
     description: 'The job took place at Iyana Ipaja. The transformation included hanging of a TV, change of POP LED light, wiring, and sockets installation.',
-    image: 'https://www.dropbox.com/scl/fi/bl8352tfn57ybaggb53kq/IMG_20250905_142013_136.jpg?rlkey=px30c7pln22p1kqpfaxbiy1s6&st=1oduvp4q&dl=1',
+    images: [
+      'https://www.dropbox.com/scl/fi/bl8352tfn57ybaggb53kq/IMG_20250905_142013_136.jpg?rlkey=px30c7pln22p1kqpfaxbiy1s6&dl=1',
+      'https://www.dropbox.com/scl/fi/1bqtq3n2pw0d5gkd3jg3q/IMG_20250905_142306_829.jpg?rlkey=s84irlcvyeo9yxy7xjm0k8vcg&dl=1',
+      'https://www.dropbox.com/scl/fi/ivmczd77779gho8go0lx3/IMG_20250905_142334_856.jpg?rlkey=0emx06bs9pxy3oqvn0p3999go&dl=1',
+      'https://www.dropbox.com/scl/fi/xbm0rgez7cte52dnevhqk/IMG_20250905_143335_668.jpg?rlkey=zbk8bg7z5ol23u7tkjcnxail5&dl=1',
+      'https://www.dropbox.com/scl/fi/m91gijbjxbpo77qxajnph/IMG_20250905_143346_780.jpg?rlkey=088gh745rym8zc6q6fw2e8jdg&dl=1',
+      'https://www.dropbox.com/scl/fi/zlohkvasv2i4rzoxwz68d/IMG_20250905_143406_115.jpg?rlkey=iwld0x86bxnguqf0iqe1b43ao&dl=1',
+      'https://www.dropbox.com/scl/fi/yfftzha3nc3n0foi79t7r/IMG_20250905_143413_613.jpg?rlkey=k6xahs1truq4y9p1ivsqgx094&dl=1',
+    ],
     category: 'Residential Renovation',
     aiHint: 'living room renovation'
   },
   {
     title: 'Smart Office Renovation',
     description: 'Complete overhaul of a corporate office with smart lighting, automated blinds, and integrated conference room technology.',
-    image: 'https://picsum.photos/600/400?random=1',
+    images: ['https://picsum.photos/600/400?random=1'],
     category: 'Smart Home',
     aiHint: 'smart office'
   },
   {
     title: 'Residential Solar Panel Installation',
     description: 'Installed a 10kW rooftop solar system for a family home, reducing their energy bills by 80%.',
-    image: 'https://picsum.photos/600/400?random=2',
+    images: ['https://picsum.photos/600/400?random=2'],
     category: 'Solar Systems',
     aiHint: 'solar panels'
   },
   {
     title: 'Retail Store CCTV Network',
     description: 'Deployed a network of 32 high-definition CCTV cameras for a large retail store, including a central monitoring station.',
-    image: 'https://picsum.photos/600/400?random=3',
+    images: ['https://picsum.photos/600/400?random=3'],
     category: 'CCTV',
     aiHint: 'security cameras'
   },
   {
     title: 'New Home Electrical Wiring',
     description: 'Full electrical wiring for a newly constructed luxury home, from foundational wiring to final fixture installation.',
-    image: 'https://picsum.photos/600/400?random=4',
+    images: ['https://picsum.photos/600/400?random=4'],
     category: 'Electrical Wiring',
     aiHint: 'electrical wiring'
   },
   {
     title: 'Custom Inventory Management Software',
     description: 'Developed a bespoke inventory management application for a warehouse, integrating barcode scanners and real-time tracking.',
-    image: 'https://picsum.photos/600/400?random=5',
+    images: ['https://picsum.photos/600/400?random=5'],
     category: 'Software Solutions',
     aiHint: 'warehouse software'
   },
   {
     title: 'Inverter Backup for Small Business',
     description: 'Set up a reliable inverter and battery backup system to ensure uninterrupted power for a critical small business.',
-    image: 'https://picsum.photos/600/400?random=6',
+    images: ['https://picsum.photos/600/400?random=6'],
     category: 'Inverter Systems',
     aiHint: 'server room'
   },
@@ -67,22 +85,48 @@ export default function PortfolioPage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {projects.map((project) => (
-            <Card key={project.title} className="overflow-hidden">
-              <div className="relative overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={600}
-                  height={400}
-                  className="object-cover w-full h-60"
-                  data-ai-hint={project.aiHint}
-                />
-              </div>
+            <Card key={project.title} className="overflow-hidden flex flex-col">
+               {project.images.length > 1 ? (
+                <Gallery images={project.images.map(img => ({ src: img, alt: project.title, hint: project.aiHint }))}>
+                  <Carousel
+                    opts={{ loop: true }}
+                    className="w-full"
+                  >
+                    <CarouselContent>
+                      {project.images.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <div className="relative h-60 w-full overflow-hidden cursor-pointer">
+                            <Image
+                              src={image}
+                              alt={`${project.title} - Image ${index + 1}`}
+                              fill
+                              className="object-cover"
+                              data-ai-hint={project.aiHint}
+                            />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 hidden group-hover:flex" />
+                    <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 hidden group-hover:flex" />
+                  </Carousel>
+                </Gallery>
+              ) : (
+                <div className="relative overflow-hidden h-60">
+                   <Image
+                    src={project.images[0]}
+                    alt={project.title}
+                    fill
+                    className="object-cover w-full"
+                    data-ai-hint={project.aiHint}
+                  />
+                </div>
+              )}
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
                 <CardDescription className="text-primary font-medium">{project.category}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-grow">
                 <p className="text-muted-foreground text-sm">{project.description}</p>
               </CardContent>
             </Card>
