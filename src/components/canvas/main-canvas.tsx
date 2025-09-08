@@ -1,43 +1,36 @@
 
 "use client";
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Preload, useGLTF } from '@react-three/drei';
+import React, { Suspense, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Preload, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 const Stars = (props: any) => {
   const ref = React.useRef<THREE.Points>(null!);
-  const [sphere] = React.useState(() => {
-    const positions = new Float32Array(5000 * 3);
-    for (let i = 0; i < 5000; i++) {
-      const i3 = i * 3;
-      positions[i3] = (Math.random() - 0.5) * 5;
-      positions[i3+1] = (Math.random() - 0.5) * 5;
-      positions[i3+2] = (Math.random() - 0.5) * 5;
+  
+  const sphere = useMemo(() => {
+    return (new THREE.Float32BufferAttribute(Array.from({ length: 5000 * 3 }, () => (Math.random() - 0.5) * 5), 3));
+  }, []);
+
+  useFrame((state, delta) => {
+    if(ref.current) {
+        ref.current.rotation.x -= delta / 10;
+        ref.current.rotation.y -= delta / 15;
     }
-    return positions;
   });
 
-  useGLTF.preload('/star/scene.gltf');
-  const star = useGLTF('/star/scene.gltf');
-
-  React.useLayoutEffect(() => {
-    if (ref.current) {
-      const transform = new THREE.Object3D();
-      for (let i = 0; i < 5000; ++i) {
-        const i3 = i * 3;
-        transform.position.set(positions[i3], positions[i3 + 1], positions[i3 + 2]);
-        transform.updateMatrix();
-        ref.current.setMatrixAt(i, transform.matrix);
-      }
-      ref.current.instanceMatrix.needsUpdate = true;
-    }
-  }, [positions]);
-
   return (
-    <instancedMesh ref={ref} args={[star.scene.children[0].geometry, undefined, 5000]} {...props}>
-        <meshStandardMaterial color="white" />
-    </instancedMesh>
+    <group rotation={[0, 0, Math.PI / 4]}>
+        <Points ref={ref} positions={sphere.array as Float32Array} stride={3} frustumCulled {...props}>
+            <PointMaterial
+                transparent
+                color="#f272c8"
+                size={0.002}
+                sizeAttenuation={true}
+                depthWrite={false}
+            />
+        </Points>
+    </group>
   );
 };
 
