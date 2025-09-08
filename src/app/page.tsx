@@ -1,8 +1,10 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShieldCheck, Wrench, Zap } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ShieldCheck, Wrench, Zap, ArrowRight } from 'lucide-react';
+import { projects } from '@/lib/portfolio-data';
 
 const featuredServices = [
   { name: 'House & Office Wiring', icon: Zap, href: '/services' },
@@ -10,6 +12,8 @@ const featuredServices = [
   { name: 'Solar & Inverter Systems', icon: Zap, href: '/services' },
   { name: 'Smart Home Gadgets', icon: Wrench, href: '/services' },
 ];
+
+const featuredProjects = projects.slice(0, 3);
 
 export default function Home() {
   return (
@@ -109,7 +113,50 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="testimonial" className="w-full py-12 md:py-24 lg:py-32">
+      <section id="portfolio-preview" className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6">
+            <div className="space-y-4 text-center">
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Our Recent Work</div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">A Glimpse of Our Portfolio</h2>
+                <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    We take pride in our work. Here are some of our recently completed projects that showcase our commitment to quality and innovation.
+                </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                {featuredProjects.map((project) => (
+                    <Card key={project.title} className="overflow-hidden group">
+                        <Link href="/portfolio" className="block">
+                            <div className="relative overflow-hidden h-60">
+                                <Image
+                                    src={project.media[0].src}
+                                    alt={project.media[0].alt}
+                                    fill
+                                    className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                                    data-ai-hint={project.media[0].hint}
+                                />
+                            </div>
+                            <CardHeader>
+                                <CardTitle className="text-xl">{project.title}</CardTitle>
+                                <CardDescription>{project.category}</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
+                            </CardContent>
+                        </Link>
+                    </Card>
+                ))}
+            </div>
+            <div className="text-center mt-12">
+                <Button asChild variant="outline">
+                    <Link href="/portfolio">
+                        View Full Portfolio <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </div>
+        </div>
+      </section>
+
+      <section id="testimonial" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8">
