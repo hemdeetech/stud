@@ -4,6 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 
 const projects = [
   {
+    title: 'Transformation from Ordinary to Stunning',
+    description: 'The job took place at Iyana Ipaja. The transformation included hanging of a TV, change of POP LED light, wiring, and sockets installation.',
+    image: 'https://www.dropbox.com/scl/fi/bl8352tfn57ybaggb53kq/IMG_20250905_142013_136.jpg?rlkey=px30c7pln22p1kqpfaxbiy1s6&st=1oduvp4q&dl=1',
+    category: 'Residential Renovation',
+    aiHint: 'living room renovation'
+  },
+  {
     title: 'Smart Office Renovation',
     description: 'Complete overhaul of a corporate office with smart lighting, automated blinds, and integrated conference room technology.',
     image: 'https://picsum.photos/600/400?random=1',
