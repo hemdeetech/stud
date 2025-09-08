@@ -13,7 +13,7 @@ const featuredServices = [
   { name: 'Smart Home Gadgets', icon: Wrench, href: '/services' },
 ];
 
-const featuredProjects = projects.slice(0, 3);
+const featuredProject = projects[0];
 
 export default function Home() {
   return (
@@ -119,32 +119,32 @@ export default function Home() {
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Our Recent Work</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">A Glimpse of Our Portfolio</h2>
                 <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    We take pride in our work. Here are some of our recently completed projects that showcase our commitment to quality and innovation.
+                    We take pride in our work. Here's one of our recently completed projects that showcases our commitment to quality and innovation.
                 </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-                {featuredProjects.map((project) => (
-                    <Card key={project.title} className="overflow-hidden group">
-                        <Link href="/portfolio" className="block">
-                            <div className="relative overflow-hidden h-60">
-                                <Image
-                                    src={project.media[0].src}
-                                    alt={project.media[0].alt}
-                                    fill
-                                    className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                                    data-ai-hint={project.media[0].hint}
-                                />
-                            </div>
-                            <CardHeader>
-                                <CardTitle className="text-xl">{project.title}</CardTitle>
-                                <CardDescription>{project.category}</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
-                            </CardContent>
-                        </Link>
-                    </Card>
-                ))}
+            <div className="mt-12 flex justify-center">
+              <div className="max-w-md w-full">
+                <Card className="overflow-hidden group">
+                    <Link href="/portfolio" className="block">
+                        <div className="relative overflow-hidden h-60">
+                            <Image
+                                src={featuredProject.media[0].src}
+                                alt={featuredProject.media[0].alt}
+                                fill
+                                className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                                data-ai-hint={featuredProject.media[0].hint}
+                            />
+                        </div>
+                        <CardHeader>
+                            <CardTitle className="text-xl">{featuredProject.title}</CardTitle>
+                            <CardDescription>{featuredProject.category}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-muted-foreground text-sm line-clamp-2">{featuredProject.description}</p>
+                        </CardContent>
+                    </Link>
+                </Card>
+              </div>
             </div>
             <div className="text-center mt-12">
                 <Button asChild variant="outline">
