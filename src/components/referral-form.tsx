@@ -9,6 +9,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters."),
@@ -71,8 +74,8 @@ export function ReferralForm() {
 
     } catch (error: any) {
        toast({
-        title: "Error",
-        description: error.message || "Failed to register. Please try again later.",
+        title: "Registration Failed",
+        description: error.message || "An unexpected error occurred. Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -203,7 +206,16 @@ export function ReferralForm() {
             />
         </div>
         
-        <h3 className="text-lg font-semibold pt-4 border-t">Account Details</h3>
+        <div className="space-y-2 pt-4 border-t">
+          <h3 className="text-lg font-semibold">Account Details</h3>
+          <Alert variant="default" className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
+            <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <AlertTitle className="text-blue-800 dark:text-blue-300">Important</AlertTitle>
+            <AlertDescription className="text-blue-700 dark:text-blue-400">
+              Please ensure your account details are correct. Payments will be sent to this account. HDTC is not responsible for payments sent to an incorrect account due to user error.
+            </AlertDescription>
+          </Alert>
+        </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
                 control={form.control}

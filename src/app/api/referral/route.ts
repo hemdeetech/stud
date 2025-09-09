@@ -86,12 +86,14 @@ export async function POST(request: Request) {
     }
 
     const payload = {
+        action: 'register',
         timestamp: new Date().toISOString(),
         ...referralData,
         userIdPrefix: 'hdtc_rp',
     };
     
-    // The Apps script needs to be configured to return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
+    // The Apps script needs to be configured to handle the 'action' and return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
+    // Or for duplicates: { "status": "duplicate", "message": "You have already registered." }
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
@@ -109,7 +111,11 @@ export async function POST(request: Request) {
     }
 
     const scriptResponse = await response.json();
-
+    
+    // Handle duplicate entry response from the script
+    if (scriptResponse.status === 'duplicate') {
+        return new NextResponse(JSON.stringify({ error: scriptResponse.message || "This email or phone number is already registered." }), { status: 409 });
+    }
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
         console.error('Invalid JSON response from Apps Script:', scriptResponse);
@@ -123,6 +129,10 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error('Error in referral registration:', error);
+    // If the error is a 409 Conflict, it's our custom duplicate error.
+    if (error.response?.status === 409) {
+       return new NextResponse(JSON.stringify({ error: error.response.data.error }), { status: 409 });
+    }
     const errorMessage = error.message || 'An unknown error occurred';
     return new NextResponse(JSON.stringify({ error: `Internal Server Error: ${errorMessage}` }), { status: 500 });
   }
