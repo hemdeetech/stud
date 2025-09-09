@@ -22,7 +22,7 @@ const referralSchema = z.object({
 
 async function sendConfirmationEmail(email: string, firstName: string, userId: string) {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.error('Email credentials for sending confirmation are not set.');
+        console.warn('Email credentials for sending confirmation are not set. Skipping email.');
         // We don't want to block the user registration if the confirmation email fails
         // So we log the error and continue.
         return;
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
   const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
   if (!scriptUrl) {
-    console.error('SERVER ERROR: GOOGLE_SCRIPT_URL environment variable is not set.');
+    console.error('SERVER ERROR: GOOGLE_SCRIPT_URL environment variable is not set or not accessible.');
     return new NextResponse(
       JSON.stringify({ error: 'Server configuration error. Please contact support.' }),
       { status: 500 }
@@ -96,22 +96,33 @@ export async function POST(request: Request) {
         userIdPrefix: 'hdtc_rp',
     };
     
+    console.log('Sending payload to Google Apps Script:', payload);
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-      cache: 'no-store',
+      cache: 'no-store', // Important for Vercel/serverless environments
     });
+    
+    console.log(`Google Apps Script response status: ${response.status}`);
     
     if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response from Google Apps Script:', response.status, errorText);
-        throw new Error(`The registration service returned an error. Please try again later.`);
+        // Try to parse the errorText to see if it's JSON from our script
+        try {
+            const errorJson = JSON.parse(errorText);
+            throw new Error(errorJson.message || `The registration service returned an error. Please try again later.`);
+        } catch (e) {
+            // If it's not JSON, throw the raw text
+            throw new Error(errorText || `The registration service returned an error. Please try again later.`);
+        }
     }
 
     const scriptResponse = await response.json();
+    console.log('Google Apps Script response body:', scriptResponse);
     
     if (scriptResponse.status === 'duplicate') {
         return new NextResponse(JSON.stringify({ error: scriptResponse.message || "This email or phone number is already registered." }), { status: 409 });
