@@ -32,6 +32,8 @@ export function ReferralForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,6 +56,7 @@ export function ReferralForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     setIsSuccess(false);
+    setSubmissionError(null);
     try {
       const response = await fetch('/api/referral', {
         method: 'POST',
@@ -77,6 +80,7 @@ export function ReferralForm() {
       setIsSuccess(true);
 
     } catch (error: any) {
+       setSubmissionError(error.message || "An unexpected error occurred. Please try again later.");
        toast({
         title: "Registration Failed",
         description: error.message || "An unexpected error occurred. Please try again later.",
@@ -90,6 +94,15 @@ export function ReferralForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        
+        {submissionError && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Registration Failed</AlertTitle>
+            <AlertDescription>{submissionError}</AlertDescription>
+          </Alert>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
              <FormField
               control={form.control}
