@@ -49,9 +49,6 @@ const nextConfig: NextConfig = {
       }
     ],
   },
-  env: {
-    GOOGLE_SCRIPT_URL: process.env.GOOGLE_SCRIPT_URL,
-  }
 };
 
 export default nextConfig;
