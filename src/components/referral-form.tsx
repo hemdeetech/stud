@@ -25,7 +25,7 @@ const formSchema = z.object({
   city: z.string().min(2, "City is required."),
   accountNumber: z.string().min(10, "Please enter a valid account number."),
   accountName: z.string().min(2, "Account name is required."),
-  bankName: zstring().min(2, "Bank name is required."),
+  bankName: z.string().min(2, "Bank name is required."),
 });
 
 export function ReferralForm() {
@@ -239,7 +239,7 @@ export function ReferralForm() {
                 name="bankName"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Bank Name</Form-Label>
+                    <FormLabel>Bank Name</FormLabel>
                     <FormControl>
                         <Input placeholder="GTBank" {...field} />
                     </FormControl>
