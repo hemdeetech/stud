@@ -14,7 +14,7 @@ const referralSchema = z.object({
   altEmail: z.string().email("Please enter a valid email address.").optional(),
   country: z.string().min(2, "Country is required."),
   state: z.string().min(2, "State is required."),
-  city: zstring().min(2, "City is required."),
+  city: z.string().min(2, "City is required."),
   accountNumber: z.string().min(10, "Please enter a valid account number."),
   accountName: z.string().min(2, "Account name is required."),
   bankName: z.string().min(2, "Bank name is required."),
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
   const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
   if (!scriptUrl) {
-    console.error('SERVER ERROR: GOOGLE_SCRIPT_URL environment variable is not set or not accessible.');
+    console.error('SERVER ERROR: GOOGLE_SCRIPT_URL environment variable is not set.');
     return new NextResponse(
       JSON.stringify({ error: 'Server configuration error. Please contact support.' }),
       { status: 500 }
@@ -89,7 +89,6 @@ export async function POST(request: Request) {
 
     const payload = {
         action: 'register',
-        timestamp: new Date().toISOString(),
         ...referralData,
         userIdPrefix: 'hdtc_rp',
     };
