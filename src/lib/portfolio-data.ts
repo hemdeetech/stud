@@ -12,7 +12,7 @@ export const projects = [
       { type: 'image', src: 'https://www.dropbox.com/scl/fi/zlohkvasv2i4rzoxwz68d/IMG_20250905_143406_115.jpg?rlkey=iwld0x86bxnguqf0iqe1b43ao&dl=1', alt: 'Ambient lighting effect', hint: 'living room renovation' },
       { type: 'image', src: 'https://www.dropbox.com/scl/fi/yfftzha3nc3n0foi79t7r/IMG_20250905_143413_613.jpg?rlkey=k6xahs1truq4y9p1ivsqgx094&dl=1', alt: 'Wide shot of the transformed room', hint: 'living room renovation' },
       { type: 'video', src: 'https://www.dropbox.com/scl/fi/pivvpj3ejnzu8mi9hjrap/InShot_20250908_075247015.mp4?rlkey=a2y157kzymzamdcm4pn5ue6mr&dl=1', alt: 'Video tour of the transformation', hint: 'living room renovation' },
-      { type: 'video', src: 'https://www.dropbox.com/scl/fi/5nyyxs51a20dmgzeblt6v/InShot_20250909_000616205.mp4?rlkey=ua9dfivdch0bfex2pjgbb3lgd&dl=1', alt: 'Video showing stunning room details', hint: 'stunning renovation' },
+      { type: 'video', src: 'https://www.dropbox.com/scl/fi/5nyyxs51a20dmgzeblt6v/InShot_20250909_000616205.mp4?rlkey=ua9dfivdch0bfex2pjgbb3lgd&dl=0', alt: 'Video showing stunning room details', hint: 'stunning renovation' },
     ],
     category: 'Residential Renovation',
   },
@@ -35,7 +35,7 @@ export const projects = [
     category: 'CCTV',
   },
   {
-    title: 'New Home Electrical Wiring',
+    title: 'New Wiring Installation',
     description: 'Full electrical wiring for a newly constructed luxury home, from foundational wiring to final fixture installation.',
     media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=4', alt: 'Electrical Wiring', hint: 'electrical wiring' }],
     category: 'Electrical Wiring',
