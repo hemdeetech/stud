@@ -14,7 +14,7 @@ const referralSchema = z.object({
   altEmail: z.string().email("Please enter a valid email address.").optional(),
   country: z.string().min(2, "Country is required."),
   state: z.string().min(2, "State is required."),
-  city: z.string().min(2, "City is required."),
+  city: zstring().min(2, "City is required."),
   accountNumber: z.string().min(10, "Please enter a valid account number."),
   accountName: z.string().min(2, "Account name is required."),
   bankName: z.string().min(2, "Bank name is required."),
@@ -23,8 +23,6 @@ const referralSchema = z.object({
 async function sendConfirmationEmail(email: string, firstName: string, userId: string) {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
         console.warn('Email credentials for sending confirmation are not set. Skipping email.');
-        // We don't want to block the user registration if the confirmation email fails
-        // So we log the error and continue.
         return;
     }
 
@@ -103,7 +101,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-      cache: 'no-store', // Important for Vercel/serverless environments
+      redirect: 'follow', // Important: This tells fetch to follow the redirect from Google
     });
     
     console.log(`Google Apps Script response status: ${response.status}`);
@@ -111,12 +109,10 @@ export async function POST(request: Request) {
     if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response from Google Apps Script:', response.status, errorText);
-        // Try to parse the errorText to see if it's JSON from our script
         try {
             const errorJson = JSON.parse(errorText);
             throw new Error(errorJson.message || `The registration service returned an error. Please try again later.`);
         } catch (e) {
-            // If it's not JSON, throw the raw text
             throw new Error(errorText || `The registration service returned an error. Please try again later.`);
         }
     }
