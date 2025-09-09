@@ -81,8 +81,10 @@ export async function POST(request: Request) {
     const result = referralSchema.safeParse(body);
 
     if (!result.success) {
-      console.error('Invalid referral form data:', result.error.flatten());
-      return new NextResponse(JSON.stringify({ error: result.error.errors[0].message }), { status: 400 });
+      const flattenedErrors = result.error.flatten();
+      const firstErrorMessage = Object.values(flattenedErrors.fieldErrors)[0]?.[0] || "Invalid form data.";
+      console.error('Invalid referral form data:', flattenedErrors);
+      return new NextResponse(JSON.stringify({ error: firstErrorMessage }), { status: 400 });
     }
     
     const referralData = result.data;
@@ -93,39 +95,37 @@ export async function POST(request: Request) {
         userIdPrefix: 'hdtc_rp',
     };
     
-    console.log('Sending payload to Google Apps Script:', payload);
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-      redirect: 'follow', // Important: This tells fetch to follow the redirect from Google
+      redirect: 'follow', 
     });
-    
-    console.log(`Google Apps Script response status: ${response.status}`);
+
+    const responseText = await response.text();
     
     if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Error response from Google Apps Script:', response.status, errorText);
-        try {
-            const errorJson = JSON.parse(errorText);
-            throw new Error(errorJson.message || `The registration service returned an error. Please try again later.`);
-        } catch (e) {
-            throw new Error(errorText || `The registration service returned an error. Please try again later.`);
-        }
+        console.error('Error response from Google Apps Script:', response.status, responseText);
+        throw new Error(`The registration service returned an error. (Status: ${response.status})`);
     }
 
-    const scriptResponse = await response.json();
-    console.log('Google Apps Script response body:', scriptResponse);
-    
+    let scriptResponse;
+    try {
+        scriptResponse = JSON.parse(responseText);
+    } catch (e) {
+        console.error('Failed to parse JSON response from Google Apps Script:', responseText);
+        throw new Error('Received an invalid response from the registration service.');
+    }
+
     if (scriptResponse.status === 'duplicate') {
         return new NextResponse(JSON.stringify({ error: scriptResponse.message || "This email or phone number is already registered." }), { status: 409 });
     }
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
         console.error('Invalid success response from Google Apps Script:', scriptResponse);
-        throw new Error('Failed to get a valid response from the registration service.');
+        throw new Error(scriptResponse.message || 'Failed to get a valid response from the registration service.');
     }
 
     await sendConfirmationEmail(referralData.email, referralData.firstName, scriptResponse.userId);
@@ -134,7 +134,7 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error('Error in referral registration API:', error);
-    const errorMessage = error.message || 'An unknown error occurred';
+    const errorMessage = error.message || 'An unknown error occurred during registration.';
     return new NextResponse(JSON.stringify({ error: `Internal Server Error: ${errorMessage}` }), { status: 500 });
   }
 }
