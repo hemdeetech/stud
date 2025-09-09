@@ -68,6 +68,16 @@ async function sendConfirmationEmail(email: string, firstName: string, userId: s
 
 
 export async function POST(request: Request) {
+  const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
+
+  if (!scriptUrl) {
+    console.error('SERVER ERROR: GOOGLE_SCRIPT_URL environment variable is not set.');
+    return new NextResponse(
+      JSON.stringify({ error: 'Server configuration error. Please contact support.' }),
+      { status: 500 }
+    );
+  }
+
   try {
     const body = await request.json();
     const result = referralSchema.safeParse(body);
@@ -78,12 +88,6 @@ export async function POST(request: Request) {
     }
     
     const referralData = result.data;
-    const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
-
-    if (!scriptUrl) {
-      console.error('Google Apps Script URL is not set in environment variables.');
-      return new NextResponse(JSON.stringify({ error: 'Server configuration error: Missing Google Script URL.' }), { status: 500 });
-    }
 
     const payload = {
         action: 'register',
@@ -92,47 +96,38 @@ export async function POST(request: Request) {
         userIdPrefix: 'hdtc_rp',
     };
     
-    // The Apps script needs to be configured to handle the 'action' and return a JSON object like { "status": "success", "userId": "hdtc_rp001" }
-    // Or for duplicates: { "status": "duplicate", "message": "You have already registered." }
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-      // Prevent Next.js from caching this dynamic request
       cache: 'no-store',
     });
     
     if (!response.ok) {
         const errorText = await response.text();
-        console.error('Error response from Apps Script:', response.status, errorText);
-        throw new Error(`The script returned an error: ${errorText}`);
+        console.error('Error response from Google Apps Script:', response.status, errorText);
+        throw new Error(`The registration service returned an error. Please try again later.`);
     }
 
     const scriptResponse = await response.json();
     
-    // Handle duplicate entry response from the script
     if (scriptResponse.status === 'duplicate') {
         return new NextResponse(JSON.stringify({ error: scriptResponse.message || "This email or phone number is already registered." }), { status: 409 });
     }
 
     if (scriptResponse.status !== 'success' || !scriptResponse.userId) {
-        console.error('Invalid JSON response from Apps Script:', scriptResponse);
-        throw new Error('Failed to get a valid response from the registration script.');
+        console.error('Invalid success response from Google Apps Script:', scriptResponse);
+        throw new Error('Failed to get a valid response from the registration service.');
     }
 
-    // Send confirmation email with the unique ID from the script
     await sendConfirmationEmail(referralData.email, referralData.firstName, scriptResponse.userId);
 
     return NextResponse.json({ message: 'Registration successful! Please check your email for your unique Referral ID.' }, { status: 200 });
 
   } catch (error: any) {
-    console.error('Error in referral registration:', error);
-    // If the error is a 409 Conflict, it's our custom duplicate error.
-    if (error.response?.status === 409) {
-       return new NextResponse(JSON.stringify({ error: error.response.data.error }), { status: 409 });
-    }
+    console.error('Error in referral registration API:', error);
     const errorMessage = error.message || 'An unknown error occurred';
     return new NextResponse(JSON.stringify({ error: `Internal Server Error: ${errorMessage}` }), { status: 500 });
   }

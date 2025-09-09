@@ -25,12 +25,14 @@ const formSchema = z.object({
   city: z.string().min(2, "City is required."),
   accountNumber: z.string().min(10, "Please enter a valid account number."),
   accountName: z.string().min(2, "Account name is required."),
-  bankName: z.string().min(2, "Bank name is required."),
+  bankName: zstring().min(2, "Bank name is required."),
 });
 
 export function ReferralForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,6 +53,7 @@ export function ReferralForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
+    setIsSuccess(false);
     try {
       const response = await fetch('/api/referral', {
         method: 'POST',
@@ -71,6 +74,7 @@ export function ReferralForm() {
         description: result.message || "Thank you for joining our referral program. We will be in touch.",
       });
       form.reset();
+      setIsSuccess(true);
 
     } catch (error: any) {
        toast({
@@ -235,7 +239,7 @@ export function ReferralForm() {
                 name="bankName"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Bank Name</FormLabel>
+                    <FormLabel>Bank Name</Form-Label>
                     <FormControl>
                         <Input placeholder="GTBank" {...field} />
                     </FormControl>
@@ -258,8 +262,8 @@ export function ReferralForm() {
             />
         </div>
         
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit Registration"}
+        <Button type="submit" className="w-full" disabled={isSubmitting || isSuccess}>
+          {isSubmitting ? "Submitting..." : (isSuccess ? "Submitted!" : "Submit Registration")}
         </Button>
       </form>
     </Form>
