@@ -59,6 +59,7 @@
   "devDependencies": {
     "@types/mailchimp__mailchimp_marketing": "^3.0.21",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/three": "^0.167.1",
