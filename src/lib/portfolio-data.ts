@@ -59,8 +59,8 @@ export const projects = [
   },
   {
     title: 'Custom Inventory Management Software',
-    description: 'Developed a bespoke inventory management application for a warehouse, integrating barcode scanners and real-time tracking.',
-    media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=5', alt: 'Warehouse Software', hint: 'warehouse software' }],
+    description: 'Developed a custom software and hardware solution that tracks electricity consumption in real-time and notifies the user which appliances are consuming the most power, enabling smart energy management.',
+    media: [{ type: 'image', src: 'https://www.dropbox.com/scl/fi/pw127gdhahfl1s5igk3be/images-15.jpeg?rlkey=34bcjx896bob1s0865meh23ox&dl=1', alt: 'Electricity Consumption Tracker', hint: 'energy consumption' }],
     category: 'Software Solutions',
   },
   {
