@@ -19,7 +19,11 @@ export const projects = [
   {
     title: 'Smart Office Renovation',
     description: 'Complete overhaul of a corporate office with smart lighting, automated blinds, and integrated conference room technology.',
-    media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=1', alt: 'Smart Office', hint: 'smart office' }],
+    media: [
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/9i4dof1a516ss3revhij7/home-design.jpg?rlkey=ns89wq1olj3fiurvkkv4rv2uk&dl=1', alt: 'Modern home design', hint: 'smart home' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/7fgcop5gj4jjjruexo3gn/images-16.jpeg?rlkey=kdttuuzzq7jy1iuioxn9pka4e&dl=1', alt: 'Smart office space', hint: 'smart office' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/cy76n05nlmklcyzvvh6pl/images-17.jpeg?rlkey=z1az0n3niwjgrw3zd6rv6ntrq&dl=1', alt: 'Home automation technology', hint: 'home automation' },
+    ],
     category: 'Smart Home',
   },
   {
