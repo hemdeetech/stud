@@ -22,7 +22,7 @@ const metadataConfig = {
   title: 'HDTC',
   description: 'Hem Dee Tech Company for electrical installations, smart homes, and more.',
   icons: {
-    icon: 'https://res.cloudinary.com/dthpjsy6f/image/upload/v1756738632/hdtc-logo_dtxhkq.png',
+    icon: 'https://www.dropbox.com/scl/fi/afum16aur1nghjn7324v8/17391-removebg-preview.png?rlkey=sfoandocc428epgslex54d0tz&dl=1',
   },
 };
 
