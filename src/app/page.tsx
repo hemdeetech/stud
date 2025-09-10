@@ -166,8 +166,7 @@ export default function Home() {
               “HDTC transformed our office with their smart home gadgets and professional wiring. The team was efficient, knowledgeable, and the 24/7 support gives us peace of mind. Highly recommended!“
             </blockquote>
             <div className="mt-6">
-              <p className="font-semibold">Jane Doe</p>
-              <p className="text-sm text-muted-foreground">Office Manager, TechCorp</p>
+              <p className="font-semibold">jimoh</p>
             </div>
           </div>
         </div>
