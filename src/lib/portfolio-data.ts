@@ -66,7 +66,12 @@ export const projects = [
   {
     title: 'Inverter Backup for Small Business',
     description: 'Set up a reliable inverter and battery backup system to ensure uninterrupted power for a critical small business.',
-    media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=6', alt: 'Server Room', hint: 'server room' }],
+    media: [
+      { type: 'image', src: 'https://www.dropbox.com/scl/fi/dpbn60hgjeg0a74xa87y9/20250502_135942.jpg?rlkey=d0g72g7sj9175hn0g3yfhkkqt&dl=1', alt: 'Inverter and backup battery system', hint: 'inverter system' },
+      { type: 'image', src: 'https://www.dropbox.com/scl/fi/x7zrij0k6ac703ob3iosf/20250502_135927.jpg?rlkey=5dbfvciunob2cvrr33eqluyen&dl=1', alt: 'Inverter and backup battery system wiring', hint: 'inverter wiring' },
+      { type: 'image', src: 'https://www.dropbox.com/scl/fi/rk9mggqqmhyqfsa2rpdsf/20250502_135921.jpg?rlkey=tcmpqiwy19dkjqc1h6ubgn6pt&dl=1', alt: 'Close up of inverter system', hint: 'inverter backup' },
+      { type: 'image', src: 'https://www.dropbox.com/scl/fi/2h96771ql99ejzdxnhkb6/20250910_015232.jpg?rlkey=wxsdbbhfpzv1348l3irye9k6p&dl=1', alt: 'Complete inverter installation', hint: 'business inverter' }
+    ],
     category: 'Inverter Systems',
   },
 ];
