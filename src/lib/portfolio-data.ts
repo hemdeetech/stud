@@ -25,7 +25,15 @@ export const projects = [
   {
     title: 'Residential Solar Panel Installation',
     description: 'Installed a 10kW rooftop solar system for a family home, reducing their energy bills by 80%.',
-    media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=2', alt: 'Solar Panels', hint: 'solar panels' }],
+    media: [
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/dpbn60hgjeg0a74xa87y9/20250502_135942.jpg?rlkey=d0g72g7sj9175hn0g3yfhkkqt&dl=1', alt: 'Solar panel installation', hint: 'solar panels' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/x7zrij0k6ac703ob3iosf/20250502_135927.jpg?rlkey=5dbfvciunob2cvrr33eqluyen&dl=1', alt: 'Solar panel on roof', hint: 'rooftop solar' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/rk9mggqqmhyqfsa2rpdsf/20250502_135921.jpg?rlkey=tcmpqiwy19dkjqc1h6ubgn6pt&dl=1', alt: 'Solar installation detail', hint: 'solar energy' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/29fm431knz42z8j9mompu/20250910_012619.jpg?rlkey=h2qez00gr9uswvp5fbf923lni&dl=1', alt: 'Inverter and battery system', hint: 'inverter system' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/7t3abhevaz41amw0t77ip/20250910_012611.jpg?rlkey=bw1lfv7x2297mduldugokt4i0&dl=1', alt: 'Solar power setup', hint: 'clean energy' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/vgy9g71giutuhp4umym5x/20250910_012609.jpg?rlkey=k1qpae8cpklo99oc11nosry7y&dl=1', alt: 'Battery backup for solar', hint: 'energy storage' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/f29pkn34nfeqj2u1kyfr9/20250910_012607.jpg?rlkey=1gizuf88opmwggmc06t9qs5yd&dl=1', alt: 'Complete solar installation', hint: 'residential solar' },
+    ],
     category: 'Solar Systems',
   },
   {
