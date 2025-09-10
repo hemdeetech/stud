@@ -31,7 +31,11 @@ export const projects = [
   {
     title: 'Retail Store CCTV Network',
     description: 'Deployed a network of 32 high-definition CCTV cameras for a large retail store, including a central monitoring station.',
-    media: [{ type: 'image', src: 'https://picsum.photos/600/400?random=3', alt: 'Security Cameras', hint: 'security cameras' }],
+    media: [
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/k6baiiza92uzwdn2b770o/20250502_140157.jpg?rlkey=kulqkd8mphoeeo6tulrbyiu23&dl=1', alt: 'CCTV Camera Installation 1', hint: 'CCTV installation' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/y0e8jjfz6xm4m3klm1uar/20250502_140946.jpg?rlkey=061dhdh3v2qi1tlcjhjz2gcep&dl=1', alt: 'CCTV Camera Installation 2', hint: 'security camera' },
+        { type: 'image', src: 'https://www.dropbox.com/scl/fi/bfeu4789ab56zimtjjovw/20250502_140324.jpg?rlkey=74fcgeh9amicint36b9zbhi86&dl=1', alt: 'CCTV Camera Installation 3', hint: 'camera setup' }
+    ],
     category: 'CCTV',
   },
   {
